@@ -1,0 +1,22 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+// Component Imports
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<MainLayout title="Contact Me">
+  <!-- Intro area -->
+  <div class="text-center pt-5 text-notwhite text-3xl">
+    Come say hi!
+    <div class="md:container md:mx-auto">
+    <p class="text-2xl pt-5">I can provide Systems Administration and Technical Support for individuals and companies. <br> You can <a class="font-bold" href="mailto:adam@lerndmina.dev">contact me</a> for more details or just to chat.</p>
+    </div>
+    <div class="grid grid-flow-col auto-cols-auto justify-center pt-5">
+      <a href="mailto:adam@lerndmina.dev" target="_blank">
+        <div class="email-sprite m-2"></div>
+      </a>
+    </div>
+  </div>
+</MainLayout>

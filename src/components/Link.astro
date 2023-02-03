@@ -1,0 +1,19 @@
+---
+interface Props {
+	text: string;
+	href: string;
+    extraclasses?: string;
+    onclick?: string;
+}
+const {
+    text,
+    href,
+    extraclasses,
+    onclick,
+} = Astro.props as Props
+
+const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${extraclasses}`;
+
+---
+{console.log(classes.toString())}
+<a onclick={onclick} class={classes} href={href}>{text}</a>

@@ -1,25 +1,14 @@
 ---
+import MainLayout from "../layouts/MainLayout.astro";
 // Component Imports
-import Nav from '../components/nav.astro';
-import Header from '../components/head.astro';
-import Footer from '../components/footer.astro'
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
 
-<html lang="en" class="bg-back">
-
-<head>
-    <title>Lerndmina.Dev • Home</title>
-    <Header />
-</head>
-<body class="h-screen bg-notblack">
-    <Nav />
-
-    <!-- Intro area -->
-    <div class="text-center pt-5 text-6xl">
-        <p>Hey I'm <span class="grad">Adam</span>.</p>
+<MainLayout title="Home">
+	<div class="text-center pt-5 text-6xl">
+        <p>Hey, I'm <span class="grad">Adam</span>.</p>
         <p class="text-4xl pt-3"><type class="typewrite grad" data-period="2000"
                 data-type='[ "I make Websites", "I run Game Servers", "I&#39;m learning Java", "I tinker with software", "I administrate systems" ]'>
             </type><noscript class="grad">I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript></p>
@@ -48,8 +37,5 @@ import Footer from '../components/footer.astro'
             <div class="email-sprite m-2"></div>
         </a>
     </div>
-
-    <Footer />
-</body>
-
-</html>
+    <script src="../components/typewriter.js"></script>
+</MainLayout>
