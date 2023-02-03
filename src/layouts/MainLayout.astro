@@ -1,0 +1,31 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+var { 
+	title, 
+	description = `Welcome to Lerndmina.Dev\nI like to make cool web stuff. Come take a look!`
+} = Astro.props as Props;
+
+title = `Lerndmina.Dev • ${title}`
+
+
+import '../styles/global.css'
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro'
+import Head from '../components/Head.astro'
+---
+
+<html lang="en">
+	<Head title={title} description={description}/>
+	<body class="h-screen bg-notblack">
+		<Nav />
+
+		<slot><div class="text-center pt-5 text-2xl">This is a default page, put some content here.</div></slot>
+
+		<Footer />
+		
+	</body>
+</html>
