@@ -1,0 +1,55 @@
+---
+// Component Imports
+import Nav from '../components/nav.astro';
+import Header from '../components/head.astro';
+import Footer from '../components/footer.astro'
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en" class="bg-back">
+
+<head>
+    <title>Lerndmina.Dev • Home</title>
+    <Header />
+</head>
+<body class="h-screen bg-notblack">
+    <Nav />
+
+    <!-- Intro area -->
+    <div class="text-center pt-5 text-6xl">
+        <p>Hey I'm <span class="grad">Adam</span>.</p>
+        <p class="text-4xl pt-3"><type class="typewrite grad" data-period="2000"
+                data-type='[ "I make Websites", "I run Game Servers", "I&#39;m learning Java", "I tinker with software", "I administrate systems" ]'>
+            </type><noscript class="grad">I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript></p>
+    </div>
+    <!-- Socials & Stuff -->
+    <p class="text-center text-xl pt-12"></p>
+    <div class="grid grid-flow-col auto-cols-auto justify-center pt-5">
+
+
+        <a href="https://discords.com/bio/p/23417904-3b87-3e03-4006-71861549e0b8" target="_blank">
+            <div class="discord-sprite m-2"></div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/adambolton53/" target="_blank">
+            <div class="linkedin-sprite m-2"></div>
+        </a>
+
+        <a href="https://www.reddit.com/user/AWildLerndmina" target="_blank">
+            <div class="reddit-sprite m-2"></div>
+        </a>
+
+        <a href="https://github.com/lerndmina" target="_blank">
+            <div class="github-sprite m-2"></div>
+        </a>
+        <a href="mailto:adam@lerndmina.dev" target="_new">
+            <div class="email-sprite m-2"></div>
+        </a>
+    </div>
+
+    <Footer />
+</body>
+
+</html>
