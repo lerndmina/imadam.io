@@ -1,15 +1,13 @@
 ---
-    const year = new Date().getFullYear();
+import Link from "./Link.astro";
+
 ---
 
-<footer class="fixed bottom-5 text-center min-w-full text-lg">
+<footer class="sticky top-[100vh] pb-5 text-center min-w-full text-lg">
     <p><noscript class="font-bold text-red-500 text-xl">Javascript is disabled, you may face errors or strangeness. <a href="hhttps://support.clio.com/hc/en-us/articles/360040902634-How-to-Enable-JavaScript-in-Your-Web-Browser" class="font-bold text-red-500">Enable it here.</a></noscript></p>
-    <p class="font-semibold
-    bg-gradient-to-r from-notwhite to-notwhite text-transparent bg-clip-text"><a href="https://lerndmina.dev" class="font-semibold
-    bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text
-    ">Lerndmina.Dev</a> All rights reserved {year}</p>
+    <p class="font-semibold"><Link href="https://lerndmina.dev" text="Lerndmina.Dev"/> | Copyright &copy; <span id="copyright"></span> | All rights reserved</p>
 </footer>
 
-
-<!--Scripts-->
-<script src="/assets/js/typewriter.js"></script>
+<script>
+    document.querySelector("#copyright").textContent = new Date().getFullYear().toString();
+</script>
