@@ -1,8 +1,31 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro"
+import PostCard from "../../components/PostCard.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+const allPosts = await Astro.glob("./*.mdx")
+
+var filteredPosts = allPosts.reduce((acc, post) => {
+      const {date, draft } = post.frontmatter;
+      // filter out drafts if true
+      if (draft) return acc;
+
+      // filter out futre posts
+      if(new Date(date) > new Date()) return acc;
+
+      // add post acc
+      acc.push(post)
+
+      return acc
+
+    }, [])
+    // having new date makes it work, but causes an error 🤷
+    filteredPosts.sort((a,b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
 
 ---
 
 <MainLayout title="Blog">
-
+    <h1 class="mx-auto text-4xl text-center">My blog posts</h1>
+{
+    filteredPosts.map((post) => <PostCard {post} />)
+}
 </MainLayout>

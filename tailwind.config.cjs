@@ -6,6 +6,7 @@ module.exports = {
 			gradient1: "#e00b8b",
 			gradient2: "#fa4b00",
 			notblack: "#2D2E2E",
+			darkbg: "#242424",
 			tb: "#00000",
 			notwhite: "#EBFCFF",
 		  },
