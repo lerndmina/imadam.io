@@ -1,0 +1,12 @@
+---
+import PreviousMap from "postcss/lib/previous-map";
+import Link from "./Link.astro";
+
+const { prevUrl, nextUrl } = Astro.props;
+---
+
+<nav class="sticky top-[80vh] mx-auto text-center text-2xl">
+  {prevUrl && <Link href={prevUrl} text="Previous Page" />}
+  {prevUrl && nextUrl && <span> • </span>}
+  {nextUrl && <Link href={nextUrl} text="Next Page" />}
+</nav>
