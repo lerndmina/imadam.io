@@ -11,43 +11,42 @@ const { title, description, date, author, image, draft, category, url } =
 
 import { Image, Picture } from "@astrojs/image/components";
 
-import '../styles/blog.css'
+import "../styles/blog.css";
 ---
 
 <MainLayout title={title} description={description}>
   <div class="max-w-4xl m-auto">
-  <header>
-    <div class="mx-auto pb-10 container text-center ">
-      <small class="text-lg">
-        <Link
-          href={`/blog/category/${slugify(category)}/`}
-          text={`Category: ${category}`}
+    <header>
+      <div class="mx-auto pb-10 container text-center">
+        <small class="text-lg">
+          <Link
+            href={`/blog/category/${slugify(category)}/`}
+            text={`Category: ${category}`}
+          />
+        </small>
+        <h1 class="text-2xl">{title}</h1>
+        <p class="text-xl">
+          by <Link href={`/blog/author/${slugify(author)}/`} text={author} /> • {
+            formatDate(date)
+          }
+        </p>
+      </div>
+      <div class="rounded-md overflow-hidden">
+        <Image
+          class="sm:px-8 md:px-16 pb-10 drop-shadow-lg"
+          src={image.src}
+          alt={image.alt}
+          width={1200}
+          height={600}
+          format={"avif"}
+          fit={"cover"}
         />
-      </small>
-      <h1 class="text-2xl">{title}</h1>
-      <p class="text-xl">
-        by <Link href={`/blog/author/${slugify(author)}/`} text={author} /> • {
-          formatDate(date)
-        }
-      </p>
-    </div>
-    <div class="rounded-md overflow-hidden">
-
-      <Image
-        class="sm:px-8 md:px-16 pb-10 drop-shadow-lg"
-        src={image.src}
-        alt={image.alt}
-        width={1200}
-        height={600}
-        format={"avif"}
-        fit={"cover"}
-      />
-    </div>
-  </header>
-  <div class="post-content sm:px-8 px-16">
-    <div class="content">
-      <slot />
+      </div>
+    </header>
+    <div class="post-content sm:px-8 px-16">
+      <div class="content prose prose-invert">
+        <slot />
+      </div>
     </div>
   </div>
-</div>
 </MainLayout>

@@ -6,13 +6,15 @@ import { slugify, formatDate } from "../js/utils";
 import { Image, Picture } from "@astrojs/image/components";
 
 const { post } = Astro.props;
-const { title, date, author, image, description, category, alt } = post.frontmatter;
-console.log(date)
+const { title, date, author, image, description, category, alt } =
+  post.frontmatter;
+console.log(date);
 ---
 
 <div class="p-10 text-notwhite">
   <!--Card 1-->
   <div class="py-5 w-full md:max-w-full md:flex bg-darkbg rounded-md">
+    <a href={post.url}>
       <Image
         class="pl-5 h-48 w-auto md:h-auto md:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         title={title}
@@ -21,29 +23,28 @@ console.log(date)
         height={400}
         alt={alt}
       />
-      <div class="px-4 flex flex-col justify-between leading-norma">
-        <div class="mb-8">
-          <div class="font-bold text-xl mb-2">
-            <Link href={post.url} text={title} />
-          </div>
-          <p class="text-base">{description}</p>
+    </a>
+    <div class="px-4 flex flex-col justify-between leading-norma">
+      <div class="mb-8">
+        <div class="font-bold text-xl mb-2">
+          <Link href={post.url} text={title} />
         </div>
-        <div class="flex items-center">
-          <div class="text-sm">
-            <p>
-              <Link
-                href={`/blog/category/${slugify(category)}/`}
-                text={`Category: ${category}`}
-              />
-            </p>
-            <p>
-              By <Link
-                href={`/blog/author/${slugify(author)}/`}
-                text={author}
-              /> • {formatDate(date)}
-            </p>
-          </div>
+        <p class="text-base">{description}</p>
+      </div>
+      <div class="flex items-center">
+        <div class="text-sm">
+          <p>
+            <Link
+              href={`/blog/category/${slugify(category)}/`}
+              text={`Category: ${category}`}
+            />
+          </p>
+          <p>
+            By <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
+            {formatDate(date)}
+          </p>
         </div>
       </div>
+    </div>
   </div>
 </div>

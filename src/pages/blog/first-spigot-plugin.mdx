@@ -1,0 +1,98 @@
+---
+layout: ../../layouts/BlogPostLayout.astro
+
+title: My first Spigot Plugin
+date: 2000-01-01
+author: Adam B
+image:
+  {
+    src: "/assets/images/posts/hq-background.png",
+    alt: "A clean background image.",
+  }
+description: Here's a post about me trying to learn spigot by making my first plugin. This is mostly documentation for myself.
+draft: false
+category: Coding
+---
+
+import Link from "../../components/Link.astro";
+import { Image, Picture } from "@astrojs/image/components";
+
+# New horizons.
+
+So...
+Step one I guess?
+
+## Step 1 Installing plugins
+
+When deciding that I wanted to tinker with Minecraft Plugins in java I first had to decide what <Link href="https://en.wikipedia.org/wiki/Integrated_development_environment" text="IDE"/> to use.
+
+I chose <Link href="https://www.jetbrains.com/idea/" text="IntelliJ"/> because it is free for personal use, has a nice dark theme, and has a huge library of plugins. Speaking of plugins, to assist me on my journey I downloaded the following;
+
+- <Link
+    href="https://plugins.jetbrains.com/plugin/10044-atom-material-icons"
+    text="Atom Material Icons"
+  />
+- <Link
+    href="https://plugins.jetbrains.com/plugin/8006-material-theme-ui"
+    text="Material Theme UI"
+  />
+- <Link
+    href="https://plugins.jetbrains.com/plugin/8327-minecraft-development"
+    text="Minecraft Development"
+  />
+- <Link
+    href="https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar"
+    text="Nyan Progress Bar"
+  /> (Because why not?)
+
+## Step 2 Creating A Project
+
+Using the Minecraft Development plugin I can generate a project with everything pre-setup for working with Spigot. Here I select the Spigot Plugin option so the plugin will use that specific API.
+
+![Picking API](/assets/images/posts/first-spigot-plugin/chooseapi.png)
+
+Here I learned that it's best practice to use your TLD then website name as your GroupId and the plugin's name as the ArtifactID so I entered `dev.lerndmina` & `exampleplugin`.
+I also decided to use Maven as my build tool because the majority of tutorials use maven...
+
+![Build Settings](/assets/images/posts/first-spigot-plugin/buildsettings.png)
+
+Next I filled out some of the required and optional plugin settings paying special attention ot the Minecraft Version setting as that will determine what API version I will need to refrence when creating my plugin.
+
+![Settings](/assets/images/posts/first-spigot-plugin/settings.png)
+
+The only thing left was to give my project a local name and we're done!
+
+![ProjName](/assets/images/posts/first-spigot-plugin/projname.png)
+
+Ahh. The glorious main class!
+
+![The Main Class](/assets/images/posts/first-spigot-plugin/justcreated.png)
+
+Now we need to set up the server to test this all on.
+
+## Step 3 Setting Up A Test Server
+
+{/* TODO Add images and spice it up. */}
+
+I like to run my testing servers on paper because it's fast and stable. So let's head on over to <Link href="https://papermc.io/downloads" text="papermc.io"/> and download the version we set earlier in the plugin settings. In this case it's `1.19`.
+
+Next we'll create a folder to house our Minecraft Server and move the server jar file into it, keep a note of the name of the jar file as we'll need it later.
+
+Coming back to intellij navigate to;  
+`File > Project Structure > Artifacts > ➕ > JAR > From Modules With Dependencies...`
+
+Next we will type in the path to the Main Class which in this case is `dev.lerndmina.exampleplugin.ExamplePlugin` and click OK. The only other thing we need to change here is the Output directory. Set this to the plugins folder inside your Minecraft Server folder.
+
+Alright, great!  
+Next we will add the settings which will make IntelliJ run the server for us so we only have to click one button to both build and run the plugin, handy right? Click on your currently listed build config and click edit configurations. Here's a handy little image to explain.
+
+![Locate Edit Configurations](/assets/images/posts/first-spigot-plugin/editconfigurations-location.png)
+
+Create a new Jar Application by clicking `➕ > 📦 Jar Application` then give it a name.
+
+_psst, just follow the stuff in the image & customise to your needs_
+![Jar Application Config](/assets/images/posts/first-spigot-plugin/JarApplicationConfig.png)
+
+After that go to the before launch section and click the ➕. Add the build artifact task we created earlier.
+
+Poof! Now with one button we can build our plugin and spin up a server to test it on!
