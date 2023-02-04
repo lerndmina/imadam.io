@@ -1,4 +1,5 @@
 ---
+import { getCollection, CollectionEntry } from "astro:content";
 import PostCard from "../../../components/PostCard.astro";
 import { formatBlogPosts, slugify } from "../../../js/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
@@ -23,16 +24,22 @@ export async function getStaticPaths() {
     },
   ];
 }
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  name: string;
+}
+
 const { category } = Astro.params;
 const { name } = Astro.props;
-const allPosts = await Astro.glob("../*.mdx");
-const formattedPosts = formatBlogPosts(allPosts, {
+
+const allPosts = await getCollection("blog");
+const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
   filterOutDrafts: true,
   filterOutFuturePosts: true,
   sortByDate: true,
 });
 const catPosts = formattedPosts.filter(
-  (post) => slugify(post.frontmatter.category) === category
+  (post) => slugify(post.data.category) === category
 );
 ---
 

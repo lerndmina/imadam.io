@@ -2,10 +2,11 @@
 import PostCard from "../../components/PostCard.astro";
 import { formatBlogPosts } from "../../js/utils";
 import MainLayout from "../../layouts/MainLayout.astro";
+import { getCollection, CollectionEntry } from "astro:content";
 
-const allPosts = await Astro.glob("./*.mdx");
+const allPosts = await await getCollection("blog");
 
-const formattedPosts = formatBlogPosts(allPosts, {
+const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
   filterOutDrafts: true,
   filterOutFuturePosts: true,
   sortByDate: true,

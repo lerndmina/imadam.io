@@ -1,21 +1,22 @@
 ---
+import { getCollection, CollectionEntry } from "astro:content";
 import PostCard from "../../../components/PostCard.astro";
 import { formatBlogPosts, slugify } from "../../../js/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
 
 export async function getStaticPaths() {
-  const allPosts = await Astro.glob("../*.mdx");
-  const formattedPosts = formatBlogPosts(allPosts, {
+  const allPosts = await getCollection("blog");
+  const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
     filterOutDrafts: true,
     filterOutFuturePosts: true,
     sortByDate: true,
   });
   const allAuthors = [
-    ...new Set(formattedPosts.map((post) => post.frontmatter.author).flat()),
+    ...new Set(formattedPosts.map((post) => post.data.author).flat()),
   ];
   return allAuthors.map((author) => {
     const authorPosts = formattedPosts.filter(
-      (post) => post.frontmatter.author === author
+      (post) => post.data.author === author
     );
     return {
       params: { author: slugify(author) },
@@ -25,6 +26,11 @@ export async function getStaticPaths() {
       },
     };
   });
+}
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  authorName: string;
 }
 
 const { author } = Astro.params;

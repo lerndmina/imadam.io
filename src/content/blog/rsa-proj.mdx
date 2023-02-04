@@ -1,24 +1,31 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
-
-
 title: RSA Project - Home Sweet Home
 date: 2019-05-22
 author: Adam B
-image: {
-  src: "/assets/images/posts/rsa-proj/proj-rsa-coldperson.jpg",
-  alt: "A picture of cold person",
-}
+image:
+  {
+    src: "/assets/images/posts/rsa-proj/proj-rsa-coldperson.jpg",
+    alt: "A picture of cold person",
+  }
 description: How might we harness age friendly design to future-proof homes, so they are sustainable, safe and inclusive places to live and enjoy?
 draft: false
 category: University
 ---
-import Link from '../../components/Link.astro'
+
+import Link from "../../components/Link.astro";
 import { Image, Picture } from "@astrojs/image/components";
 
-<p style="text-align: center;"><i><Link href="https://link.lerndmina.dev/cj1gg" text={`Image from Shutterstock "Paramedic rescues an elderly person in distress..."`} /></i></p>
+<p style="text-align: center;">
+  <i>
+    <Link
+      href="https://link.lerndmina.dev/cj1gg"
+      text={`Image from Shutterstock "Paramedic rescues an elderly person in distress..."`}
+    />
+  </i>
+</p>
 
 ## Which brief did I choose and why?
+
 I chose the home sweet home brief. It came with the question “How might we harness age friendly design to future-proof homes, so they are sustainable, safe and inclusive places to live and enjoy?”
 
 This question inspired me to think about something that I had observed. Elderly people always seem to have their heating turned all the way up, or all the way down. If you visit the home of an elderly person, it is either so warm you are sweating buckets or so cold you think you need about three extra layers! The weirdest part about this whole phenomenon is they never seem to notice.
@@ -27,8 +34,8 @@ It turns out that some physical changes in elderly people mean that they often n
 
 I want to stop this. Nobody should be in danger of death in their own home because they can’t sense when it’s getting too hot or too cold. To do this I’m going to design a climate control system to help the elderly in their homes. I want to use machine learning to predict when the occupant requires heat or cooling based on their previous behaviour. The system will also have safety limits to prevent elderly people from overheating or under heating themselves and would notify an emergency contact if safe parameters are exceeded.
 
-
 ## My Design
+
 Any design I come up with needs to seamlessly integrate into the elderly person’s home. It must not look like an accessibility device, but something you’d want to have around and feel comfortable using. The idea is to have a simple wall unit in the shape of a cartoon style house with two buttons and a screen. This would, at a glance, allow the user to quickly determine the status of the heating in their home, adjusting it when necessary.
 
 ![](/assets/images/posts/rsa-proj/proj-rsa-mainuinit1-min.png)
@@ -46,7 +53,9 @@ Somebody commented on my design for the wall plate that the LCD screen was not l
 ![](/assets/images/posts/rsa-proj/proj-rsa-mainuinit2-min.png)
 
 ## How did I make the design?
+
 ### Wall Unit Design
+
 From a cube, in edit mode I subdivided and used the knife tool to create the main house shape. I pulled one top corner over and up to make the peak and then deleted the other corner giving a triangular shape to the roof. I used the knife tool to create the vertices giving me points to make the eaves. Using the knife tool again, I created the outline for the screen and inserted a face. I recessed the face back into the body to make the basic shape of the screen.
 
 I obviously could not leave the house looking like boring white plastic. I navigated to the material editor and chose to give the house a light green colour. I chose green as it is a gender neutral colour. It is neither red nor blue which would represent hot or cold and could clash with the buttons. I avoided choosing a colour like purple which could be considered too "modern". To indicate an LCD I made the screen area black.
@@ -56,6 +65,7 @@ To start making the buttons I added a cylinder, inserted a face and extruded to 
 ![](/assets/images/posts/rsa-proj/proj-rsa-house-edit.png)
 
 ### Remote Control Design
+
 Starting with a UV sphere in edit mode. I turned on x-ray and removed the top half of the sphere. I stretched the half sphere to create an elongated oval-shape. I took inspiration from the Google Chromecast remote. This remote feels very comfortable in the hand, it is well designed ergonomically. Using the knife tool and the loop cut tool, I added geometry along the length of the remote. Rather than selecting the rim and creating one face, I took vertices directly across from each other and created an edge between them. Once I had a grid I was able to select squares in that grid and fill them in. This would allow me later to subdivide the geometry on the face giving me enough space to insert the screen.
 
 ![](/assets/images/posts/rsa-proj/proj-rsa-remote-geo.png)
@@ -66,8 +76,8 @@ To match the design of the wall unit, I opened the shading workspace and created
 
 To make the black dot denoting the infrared emitter on the remote control, I selected the geometry that was going to be black and applied the LCD screen material to it. That had the same kind of reflectivity I was looking for.
 
-*Final Render of The Remote*
+_Final Render of The Remote_
 ![](/assets/images/posts/rsa-proj/remote-final.png)
 
-*Final Wall Unit Render*
+_Final Wall Unit Render_
 ![](/assets/images/posts/rsa-proj/house-final.png)
