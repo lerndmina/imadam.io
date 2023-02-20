@@ -1,38 +1,42 @@
 ---
 import Link from "../components/Link.astro";
-
 import { slugify, formatDate } from "../js/utils";
-
 import { Image, Picture } from "@astrojs/image/components";
 import { CollectionEntry } from "astro:content";
-
 const { post } = Astro.props;
-
 interface Props {
   post: CollectionEntry<"blog">;
 }
 
-const { title, date, author, image, description, category, alt } = post.data;
+const { title, date, author, image, description, category } = post.data;
+
+const { aspect_ratio } = image;
+const imageX = aspect_ratio.x;
+const imageY = aspect_ratio.y;
+const aspectRatio = imageX / imageY;
 
 const url = `/blog/${post.slug}/`;
 
 console.log(`POST URLS ${url}`);
 ---
 
-<div class="p-10 text-notwhite">
+<div class="p-10 max-w-5xl text-notwhite mx-auto">
   <!--Card 1-->
-  <div class="py-5 w-full md:max-w-full md:flex bg-darkbg rounded-md">
+  <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
       <Image
-        class="pl-5 h-48 w-auto md:h-auto md:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-        title={title}
-        src={image}
+        class="pl-5 h-48 mx-auto w-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        title={`A header image for the post "${title}"`}
+        src={image.src}
         width={400}
-        height={400}
-        alt={alt}
+        aspectRatio={aspectRatio}
+        format={"avif"}
+        alt={`A header image for the post "${title}"`}
       />
     </a>
-    <div class="px-4 flex flex-col justify-between leading-norma">
+    <div
+      class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma"
+    >
       <div class="mb-8">
         <div class="font-bold text-xl mb-2">
           <Link href={url} text={title} />

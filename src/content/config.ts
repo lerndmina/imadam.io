@@ -8,6 +8,10 @@ const blog = defineCollection({
     image: z.object({
         src: z.string(),
         alt: z.string(),
+        aspect_ratio: z.object({
+          x: z.number(),
+          y: z.number(),
+        }),
       }),
     description: z.string().max(
       160,

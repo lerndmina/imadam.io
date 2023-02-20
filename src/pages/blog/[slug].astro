@@ -21,6 +21,7 @@ interface Props {
 }
 const { post } = Astro.props;
 const { title, description, date, category, author, image } = post.data;
+const imageRatio = image.aspect_ratio.x / image.aspect_ratio.y;
 const { Content } = await post.render();
 const allPosts = await getCollection("blog");
 const formattedPosts = formatBlogPosts(allPosts, {
@@ -45,13 +46,13 @@ const formattedPosts = formatBlogPosts(allPosts, {
           }
         </p>
       </div>
-      <div class="rounded-md overflow-hidden">
+      <div class="rounded-md overflow-hidden mx-auto p-10">
         <Image
-          class="sm:px-8 md:px-16 pb-10 drop-shadow-lg"
+          class="drop-shadow-lg"
           src={image.src}
           alt={image.alt}
-          width={1200}
-          height={600}
+          width={600}
+          aspectRatio={imageRatio}
           format={"avif"}
           fit={"cover"}
         />

@@ -6,7 +6,7 @@ import { getCollection, CollectionEntry } from "astro:content";
 import Pagination from "../../components/Pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
-  const allPosts = await await getCollection("blog");
+  const allPosts = await getCollection("blog");
 
   const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
     filterOutDrafts: true,
