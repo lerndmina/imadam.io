@@ -1,13 +1,35 @@
 ---
 import Link from "./Link.astro";
 
+var date = new Date();
+var dd = String(date.getDate()).padStart(2, "0");
+var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
+var yyyy = date.getFullYear();
+
+var today = yyyy + "/" + mm + "/" + dd;
+
+var updateStatement = `Site last updated ${today}`;
 ---
 
-<footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg">
-    <p><noscript class="font-bold text-red-500 text-xl">Javascript is disabled, you may face errors or strangeness. <a href="hhttps://support.clio.com/hc/en-us/articles/360040902634-How-to-Enable-JavaScript-in-Your-Web-Browser" class="font-bold text-red-500">Enable it here.</a></noscript></p>
-    <p class="font-semibold"><Link href="https://lerndmina.dev" text="Lerndmina.Dev"/> | Copyright &copy; <span id="copyright"></span> | All rights reserved</p>
+<footer
+  class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg"
+>
+  <p>
+    <noscript class="font-bold text-red-500 text-xl"
+      >Javascript is disabled, you may face errors or strangeness. <a
+        href="hhttps://support.clio.com/hc/en-us/articles/360040902634-How-to-Enable-JavaScript-in-Your-Web-Browser"
+        class="font-bold text-red-500">Enable it here.</a
+      ></noscript
+    >
+  </p>
+  <p class="font-semibold" title={updateStatement}>
+    <Link href="https://lerndmina.dev" text="Lerndmina.Dev" /> | Copyright &copy;
+    <span id="copyright"></span> | All rights reserved
+  </p>
 </footer>
 
 <script>
-    document.querySelector("#copyright").textContent = new Date().getFullYear().toString();
+  document.querySelector("#copyright").textContent = new Date()
+    .getFullYear()
+    .toString();
 </script>
