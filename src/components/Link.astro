@@ -1,19 +1,24 @@
 ---
 interface Props {
-	text: string;
-	href: string;
-    extraclasses?: string;
-    onclick?: string;
+  text: string;
+  href: string;
+  extraclasses?: string;
+  onclick?: string;
 }
-const {
-    text,
-    href,
-    extraclasses,
-    onclick,
-} = Astro.props as Props
+const { text, href, extraclasses, onclick } = Astro.props as Props;
 
-const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${extraclasses}`;
+const homeUrl = "lerndmina.dev";
+var target;
 
+const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${
+  extraclasses ? extraclasses : ""
+}`;
+
+const regex = "^(https?://)?(www.)?([^/]+)";
+const found = href.match(regex);
+if (found && found[3] != homeUrl) {
+  target = 'target="_blank"';
+}
 ---
-{console.log(classes.toString())}
-<a onclick={onclick} class={classes} href={href}>{text}</a>
+
+<a onclick={onclick} {target} class={classes} href={href}>{text}</a>

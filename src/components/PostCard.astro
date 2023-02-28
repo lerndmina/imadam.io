@@ -17,7 +17,7 @@ const aspectRatio = imageX / imageY;
 
 const url = `/blog/${post.slug}/`;
 
-console.log(`POST URLS ${url}`);
+// console.log(`POST URLS ${url}`);
 ---
 
 <div class="p-10 max-w-5xl text-notwhite mx-auto">
@@ -34,9 +34,7 @@ console.log(`POST URLS ${url}`);
         alt={`A header image for the post "${title}"`}
       />
     </a>
-    <div
-      class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma"
-    >
+    <div class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma">
       <div class="mb-8">
         <div class="font-bold text-xl mb-2">
           <Link href={url} text={title} />
@@ -46,10 +44,7 @@ console.log(`POST URLS ${url}`);
       <div class="flex items-center">
         <div class="text-sm">
           <p>
-            <Link
-              href={`/blog/category/${slugify(category)}/`}
-              text={`Category: ${category}`}
-            />
+            <Link href={`/blog/category/${slugify(category)}/`} text={`Category: ${category}`} />
           </p>
           <p>
             By <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
