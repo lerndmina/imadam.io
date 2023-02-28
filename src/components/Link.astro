@@ -7,12 +7,13 @@ interface Props {
 }
 const { text, href, extraclasses, onclick } = Astro.props as Props;
 
-const homeUrl = "lerndmina.dev";
-var target;
-
 const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${
   extraclasses ? extraclasses : ""
 }`;
+
+// If domain exists and is not homeurl then open in new tab.
+const homeUrl = "lerndmina.dev";
+var target;
 
 const regex = "^(https?://)?(www.)?([^/]+)";
 const found = href.match(regex);
