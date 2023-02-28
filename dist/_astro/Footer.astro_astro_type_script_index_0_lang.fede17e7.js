@@ -1,0 +1,1 @@
+const e=document.querySelectorAll("[data-navLink]");e.forEach(t=>{t.getAttribute("href")===window.location.pathname&&t.classList.add("nav-link-selected")});document.querySelector("#copyright").textContent=new Date().getFullYear().toString();
