@@ -7,6 +7,8 @@ var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
 var yyyy = date.getFullYear();
 
 var today = yyyy + "/" + mm + "/" + dd;
+
+const isProd = import.meta.env.IS_PROD;
 ---
 
 <footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg">
@@ -22,7 +24,7 @@ var today = yyyy + "/" + mm + "/" + dd;
     <Link href="https://lerndmina.dev" text="Lerndmina.Dev" /> | Copyright &copy; <span id="copyright"></span> | All rights reserved
   </p>
   <p class="text-xs">
-    Built using <Link href="https://astro.build" text="AstroJS" /> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS" />| Last updated {today}
+    Built using <Link href="https://astro.build" text="AstroJS" /> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS" />| Last updated {today} | IS PROD = {isProd}
   </p>
 </footer>
 
