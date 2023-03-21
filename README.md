@@ -49,5 +49,3 @@ The directory `./dist` contains the static HTML files.
 **Client:** [Astro](https://astro.build), [TailwindCSS](https://tailwindcss.com)
 
 **Server:** *Any static site host*
-
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://choosealicense.com/licenses/gpl-3.0/)
