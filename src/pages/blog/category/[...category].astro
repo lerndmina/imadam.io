@@ -5,47 +5,38 @@ import { formatBlogPosts, slugify } from "../../../js/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
 
 export async function getStaticPaths() {
-  return [
-    {
-      params: { category: slugify("University") },
-      props: { name: "University" },
-    },
-    {
-      params: { category: slugify("General") },
-      props: { name: "General" },
-    },
-    {
-      params: { category: slugify("Personal") },
-      props: { name: "Personal" },
-    },
-    {
-      params: { category: slugify("Coding") },
-      props: { name: "Coding" },
-    },
-  ];
+  const allPosts = await getCollection("blog");
+  const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
+    filterOutDrafts: true,
+    filterOutFuturePosts: true,
+    sortByDate: true,
+  });
+  const allCategories = [...new Set(formattedPosts.map((post) => post.data.category).flat())];
+  return allCategories.map((category) => {
+    const categoryPosts = formattedPosts.filter((post) => post.data.category === category);
+    return {
+      params: { category: slugify(category) },
+      props: {
+        categoryName: category,
+        posts: categoryPosts,
+      },
+    };
+  });
 }
 interface Props {
   posts: CollectionEntry<"blog">[];
-  name: string;
+  categoryName: string;
 }
 
 const { category } = Astro.params;
-const { name } = Astro.props;
+const { posts, categoryName } = Astro.props;
 
-const allPosts = await getCollection("blog");
-const formattedPosts: CollectionEntry<"blog">[] = formatBlogPosts(allPosts, {
-  filterOutDrafts: true,
-  filterOutFuturePosts: true,
-  sortByDate: true,
-});
-const catPosts = formattedPosts.filter(
-  (post) => slugify(post.data.category) === category
-);
+const catPosts = posts.filter((post) => slugify(post.data.category) === category);
 ---
 
-<MainLayout title={`Posts about ${name}`}>
+<MainLayout title={`Posts about ${categoryName}`}>
   <h1 class="mx-auto text-4xl text-center">
-    Posts about <span class="grad">{name}</span>
+    Posts about <span class="grad">{categoryName}</span>
   </h1>
   {catPosts.map((post) => <PostCard {post} />)}
 </MainLayout>
