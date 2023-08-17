@@ -10,9 +10,9 @@ import MainLayout from "../layouts/MainLayout.astro";
   <div class="text-center pt-5 text-6xl">
     <p>Hey, I'm <span class="grad">Adam</span>.</p>
     <p class="text-4xl pt-3">
-      <type transition:persist class="typewrite grad" data-period="2000" data-type='[ "I make Websites", "I run Game Servers", "I&apos;m learning Java", "I enjoy tinkering with software" ]'
-        >Loading...</type
-      ><noscript class="grad">I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript>
+      <type class="typewrite grad" data-period="2000" data-type='[ "I make Websites", "I run Game Servers", "I&apos;m learning Java", "I enjoy tinkering with software" ]'></type><noscript class="grad"
+        >I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript
+      >
     </p>
   </div>
   <!-- Socials & Stuff -->
@@ -37,5 +37,68 @@ import MainLayout from "../layouts/MainLayout.astro";
       <div class="email-sprite m-2"></div>
     </a>
   </div>
-  <script src="../js/typewriter.js"></script>
+  <script>
+    var TxtType = function (el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 10) || 2000;
+      this.txt = "";
+      this.tick();
+      this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function () {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
+
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+
+      this.el.innerHTML = '<span class="wrap">' + this.txt + "</span>";
+
+      var that = this;
+      var delta = 175 - Math.random() * 100;
+
+      if (this.isDeleting) {
+        delta /= 2.5;
+      }
+
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === "") {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
+
+      setTimeout(function () {
+        that.tick();
+      }, delta);
+    };
+
+    const typeWrite = function () {
+      var elements = document.getElementsByClassName("typewrite");
+      for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute("data-type");
+        var period = elements[i].getAttribute("data-period");
+        if (toRotate) {
+          new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.format = "text/css";
+      css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+      document.body.appendChild(css);
+    };
+
+    document.addEventListener("astro:load", () => {
+      typeWrite();
+    });
+  </script>
 </MainLayout>
