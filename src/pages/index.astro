@@ -10,12 +10,9 @@ import MainLayout from "../layouts/MainLayout.astro";
   <div class="text-center pt-5 text-6xl">
     <p>Hey, I'm <span class="grad">Adam</span>.</p>
     <p class="text-4xl pt-3">
-      <type
-        class="typewrite grad"
-        data-period="2000"
-        data-type='[ "I make Websites", "I run Game Servers", "I&apos;m learning Java", "I enjoy tinkering with software" ]'
-        >Loading...
-      </type><noscript class="grad">I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript>
+      <type transition:persist class="typewrite grad" data-period="2000" data-type='[ "I make Websites", "I run Game Servers", "I&apos;m learning Java", "I enjoy tinkering with software" ]'
+        >Loading...</type
+      ><noscript class="grad">I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript>
     </p>
   </div>
   <!-- Socials & Stuff -->
