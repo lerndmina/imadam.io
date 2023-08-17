@@ -43,12 +43,12 @@ const url = `/blog/${post.slug}/`;
         <p class="text-base">{description}</p>
       </div>
       <div class="flex items-center">
-        <div class="text-sm">
+        <div class="text-sm text-left">
           <p>
-            <Link href={`/blog/category/${slugify(category)}/`} text={`Category: ${category}`} />
+            <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
           </p>
           <p>
-            By <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
+            <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
             {formatDate(date)}
           </p>
         </div>
