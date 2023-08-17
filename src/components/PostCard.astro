@@ -32,7 +32,7 @@ const url = `/blog/${post.slug}/`;
         height={400 / aspectRatio}
         aspectRatio={aspectRatio}
         format={"avif"}
-        alt={`A header image for the post "${title}"`}
+        alt={image.alt || `A header image for the post "${title}"`}
       />
     </a>
     <div class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma">

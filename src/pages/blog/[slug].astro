@@ -43,7 +43,7 @@ const formattedPosts = formatBlogPosts(allPosts, {
       </div>
     </header>
     <div class="flex justify-center rounded-md overflow-hidden mx-auto p-10 pt-20">
-      <Image class="drop-shadow-lg" src={image.src} alt={image.alt} width={800} height={700 / imageRatio} aspectRatio={imageRatio} format={"avif"} fit={"cover"} />
+      <Image class="drop-shadow-lg" src={image.src} alt={image.alt} width={800} height={700 / imageRatio} aspectRatio={imageRatio} format={"avif"} fit={"cover"} title={image.alt} />
     </div>
     <div class="flex justify-center sm:px-8 px-16">
       <div class="content prose prose-invert">

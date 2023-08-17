@@ -12,11 +12,8 @@ const blog = defineCollection({
           x: z.number(),
           y: z.number(),
         }),
-      }),
-    description: z.string().max(
-      160,
-      "For best SEO results, please keep the description under 160 characters."
-    ),
+      }).default({src: "/assets/images/posts/hq-background.png", alt: "A clean default background image.", aspect_ratio: {x: 1, y: 0.75}}),
+    description: z.string(),
     draft: z.boolean().default(false),
     category: z.enum(["Coding", "Personal", "General", "University"]),
   }),
