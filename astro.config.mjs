@@ -12,6 +12,9 @@ import image from "@astrojs/image";
 
 // https://astro.build/config
 export default defineConfig({
+  experimental: {
+    viewTransitions: true,
+  },
   integrations: [
     mdx(),
     tailwind(),
