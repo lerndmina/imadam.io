@@ -23,10 +23,10 @@ const { post } = Astro.props;
 const { title, description, date, category, author, image } = post.data;
 const imageRatio = image.aspect_ratio.x / image.aspect_ratio.y;
 const { Content } = await post.render();
-const allPosts = await getCollection("blog");
-const formattedPosts = formatBlogPosts(allPosts, {
-  sortByDate: false,
-});
+// const allPosts = await getCollection("blog");
+// const formattedPosts = formatBlogPosts(allPosts, {
+//   sortByDate: false,
+// });
 ---
 
 <MainLayout title={title} description={description}>
