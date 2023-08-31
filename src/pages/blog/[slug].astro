@@ -32,8 +32,8 @@ const { Content } = await post.render();
   <div class="max-w-4xl m-auto">
     <header>
       <div class="mx-auto pb-10 container text-center">
-        <h1 class="text-5xl pb-1">{title}</h1>
-        <p class="text-md">
+        <h1 class="text-5xl pb-1" transition:name={"title-" + post.slug}>{title}</h1>
+        <p class="text-md" transition:name={"author-" + post.slug}>
           by <Link href={`/blog/author/${slugify(author)}/`} text={author} /> • {formatDate(date)}
         </p>
         <small class="text-sm">

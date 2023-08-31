@@ -1,0 +1,91 @@
+---
+title: Upgrading to Astro 3.0 because I can.
+date: 2023-08-31
+author: Adam B
+image: {
+  src: "/assets/images/headers/astro3.png"
+}
+imageTitle: "Astro 3.0 header image, taken from Astro.build"
+description: Here's a template for a post, it's wonderful
+draft: true
+category: Personal
+---
+
+import Link from "../../components/Link.astro";
+import { Image } from "astro:assets";
+
+## Aaaand Begin!
+
+
+
+<p class="text-xs">*Compulsory introduction for those new to astro*</p>
+<Link href="https://astro.build" text="Astro" /> is fairly new framework for building fast and modern websites with your favorite frontend tools. <Link href="https://astro.build/blog/astro-3/" text="Recently, Astro released its version 3.0" />
+, which introduced some major changes and improvements. In this post, I will share how I upgraded my website to Astro 3.0 and what challenges I faced and solved along the way. I will also show you some
+of the features and benefits of using Astro 3.0, such as view transitions & image optimizations.
+
+The first step to upgrade to Astro 3.0 was to update the dependencies in my package.json file. I updated astro, astrojs/mdx, astrojs/tailwind, and tailwindcss to their latest versions. Then I ran `yarn` to install the updated packages.
+
+
+## ViewTransitions
+I decided to try out the new view transitions feature that Astro 3.0 introduced. View transitions allow you to create smooth animations between pages using the native CSS `@view-transition` rule. This feature is currently only supported by Chromium browsers, but Astro provides a fallback mechanism for other browsers. 
+
+To add it to my website I imported the `viewtransitions` component from `astrojs/viewtransitions` into my global `Head.astro` component that I have on every page. I then added `<ViewTransitions />` to the bottom of the `Head.astro` component. Here's how that looks:
+
+```astro
+--- 
+import { ViewTransitions } from "astrojs/viewtransitions";
+---
+
+<ViewTransitions />
+```
+
+Astro has an implementation in Javascript for ViewTransitions that allows it to work on non chromium based browsers, but this did not seem to be working for me, so I had to adjust my `Head.astro` component to only render the ViewTransitions component if the browser is Chromium based. Here's how that looks:
+
+```astro
+---
+  import { ViewTransitions } from "astrojs/viewtransitions";
+---
+
+<ViewTransitions fallback='none' />
+```
+
+The `fallback` prop tells Astro to not render the ViewTransitions component if the browser is not Chromium based. This fixed the issue I was having with the ViewTransitions component not working on non Chromium based browsers.
+
+I felt that just having ViewTransitions break on non chromium browsers was bad UX so I added a little warning to the footer of my website that tells the user that the transitions will not work on their browser.
+
+*PS: Astro's ViewTransitions even respects the prefers-reduced-motion setting & reduces motion when this is set*
+
+## Image Optimizations
+
+Another change that I made to my website was to move all my images from `/public` to `/src` folder. This allowed me to take advantage of Astro’s built-in image optimization feature. Astro automatically optimizes and resizes your images based on the browser and device of your visitors. Essentially I don't have to worry so much about manually optimizing my images for different devices and browsers. Astro does it for me.
+
+There's not really much to say about this other than I had to change most of how I display images because this broke most of my website. For example when you are on the `/blog/[...category].astro` page I have to take into acount that you are one level deeper in the relative path so I manually have to edit the path to the image. Here's how that looks in my `[...category].astro` page:
+
+```astro
+---
+// Imports etc...
+---
+
+<MainLayout title={`Posts about ${categoryName}`}>
+  <h1 class="mx-auto text-4xl text-center">
+    Posts about <span class="grad">{categoryName}</span>
+  </h1>
+  {catPosts.map((post) => {
+    post.data.image.src = ("../" + post.data.image.src);
+    <PostCard {post} />
+  })}
+</MainLayout>
+```
+
+
+## Annoying Bugs
+
+I noticed that the scrollbar would shift the nav left and right when changing between a page that doesn't scroll and a page that does. After a bit of *google-fu* I was able to fix this by editing my `global.css` and adding the following:
+
+```css
+html {
+  scrollbar-gutter: stable;
+}
+```
+
+This is a fairly new css property and it's not supported by all browsers yet, but it's supported by all the major browsers so I'm not too worried about it. This property ensures that a space is always reserved for the scrollbar gutter, even if the element is not overflowing. However, this only applies to classic scrollbars that consume space in the UI. Here's the <Link href="https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter" text="MDN Web Docs" /> for more info.

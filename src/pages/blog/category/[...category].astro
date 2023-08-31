@@ -38,5 +38,8 @@ const catPosts = posts.filter((post) => slugify(post.data.category) === category
   <h1 class="mx-auto text-4xl text-center">
     Posts about <span class="grad">{categoryName}</span>
   </h1>
-  {catPosts.map((post) => <PostCard {post} />)}
+  {catPosts.map((post) => {
+    post.data.image.src = ("../" + post.data.image.src);
+    <PostCard {post} />
+  })}
 </MainLayout>

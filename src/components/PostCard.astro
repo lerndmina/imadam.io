@@ -20,7 +20,7 @@ const url = `/blog/${post.slug}/`;
   <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
       <img
-        class=" sm:p5-10 pl-5 max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        class=" sm:p5-10 pl-5 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         title={`A header image for the post "${title}"`}
         src={image.src}
         alt={imageTitle || `A header image for the post "${title}"`}
@@ -29,7 +29,7 @@ const url = `/blog/${post.slug}/`;
     </a>
     <div class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma">
       <div class="mb-8">
-        <div class="font-bold text-xl mb-2">
+        <div class="font-bold text-xl mb-2" transition:name={"title-" + post.slug}>
           <Link href={url} text={title} />
         </div>
         <p class="text-base">{description}</p>
@@ -39,7 +39,7 @@ const url = `/blog/${post.slug}/`;
           <p>
             <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
           </p>
-          <p>
+          <p transition:name={"author-" + post.slug}>
             <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
             {formatDate(date)}
           </p>

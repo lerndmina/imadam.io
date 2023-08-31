@@ -97,11 +97,9 @@ import MainLayout from "../layouts/MainLayout.astro";
       document.body.appendChild(css);
     };
 
-    document.addEventListener("astro:page-load", () => {
-      typeWrite();
-    });
+    typeWrite();
 
-    document.addEventListener("load", () => {
+    document.addEventListener("astro:page-load", () => {
       typeWrite();
     });
 

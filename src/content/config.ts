@@ -23,7 +23,7 @@ const blog = defineCollection({
       width: z.number().optional(),
       height: z.number().optional(),
       format: z.string().optional(),
-    }).optional().default(defaultImage),
+    }).optional().default({ src: defaultImage.src}),
     imageTitle: z.string().optional().nullable(),
     description: z.string(),
     draft: z.boolean().default(false),

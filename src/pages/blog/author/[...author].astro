@@ -41,5 +41,8 @@ const { posts, authorName } = Astro.props;
   <h1 class="mx-auto text-4xl text-center">
     Posts by <span class="grad">{authorName}</span>
   </h1>
-  {posts.map((post) => <PostCard {post} />)}
+  {posts.map((post) => {
+    post.data.image.src = ("../" + post.data.image.src);
+    <PostCard {post} />
+  })}
 </MainLayout>
