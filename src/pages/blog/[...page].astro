@@ -24,6 +24,7 @@ const { page } = Astro.props;
 
 <MainLayout title="Blog">
   <h1 class="mx-auto text-4xl text-center">Blog:</h1>
+  <br />
   <!-- <h1 class="mx-auto text-2xl text-center">Latest posts sorted first.</h1> -->
 
   {page.data.map((post: CollectionEntry<"blog">) => <PostCard {post} />)}

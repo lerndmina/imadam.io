@@ -1,19 +1,14 @@
 ---
 import Link from "../components/Link.astro";
 import { slugify, formatDate } from "../js/utils";
-import { Image, Picture } from "@astrojs/image/components";
+import { Image } from 'astro:assets'
 import { CollectionEntry } from "astro:content";
 const { post } = Astro.props;
 interface Props {
   post: CollectionEntry<"blog">;
 }
 
-const { title, date, author, image, description, category } = post.data;
-
-const { aspect_ratio } = image;
-const imageX = aspect_ratio.x;
-const imageY = aspect_ratio.y;
-const aspectRatio = imageX / imageY;
+const { title, date, author, image, imageTitle, description, category } = post.data;
 
 const url = `/blog/${post.slug}/`;
 
@@ -24,15 +19,12 @@ const url = `/blog/${post.slug}/`;
   <!--Card 1-->
   <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
-      <Image
-        class="pl-5 h-48 mx-auto w-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+      <img
+        class=" sm:p5-10 pl-5 max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         title={`A header image for the post "${title}"`}
         src={image.src}
-        width={400}
-        height={400 / aspectRatio}
-        aspectRatio={aspectRatio}
-        format={"avif"}
-        alt={image.alt || `A header image for the post "${title}"`}
+        alt={imageTitle || `A header image for the post "${title}"`}
+        transition:name={"img-" + post.slug}
       />
     </a>
     <div class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma">

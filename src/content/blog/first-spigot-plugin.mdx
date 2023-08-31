@@ -3,14 +3,14 @@ title: "Journey into Spigot: Creating My First Plugin"
 date: 2022-08-13
 author: Adam B
 tags: Spigot, Minecraft, Java, IntelliJ, Plugin Development
-image: { src: "/assets/images/posts/first-spigot-plugin/tech-background.jpg", alt: "Photo by Ales Nesetril on Unsplash", aspect_ratio: { x: 1.5, y: 1 } }
+image: { src: "/assets/images/headers/tech-background.jpg", title: "Photo by Ales Nesetril on Unsplash" }
 description: An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path.
 draft: false
 category: Coding
 ---
 
 import Link from "../../components/Link.astro";
-import { Image, Picture } from "@astrojs/image/components";
+// import { Image } from "astro:assets";
 
 # A New Journey
 
@@ -31,23 +31,23 @@ I opted for <Link href="https://www.jetbrains.com/idea/" text="IntelliJ"/>. Its 
 
 Using the Minecraft Development plugin I was able to generate a ready-to-use project, designed specifically for working with Spigot. The plugin provides a wizard to guide you through the process of creating a new project.
 
-![Choosing API](/assets/images/posts/first-spigot-plugin/chooseapi.png)
+![Choosing API](../../assets/images/posts/first-spigot-plugin/chooseapi.png)
 
 To adhere to software engineering best practices, I used my Top-Level Domain (TLD) and website name for the GroupId and coined the name of the plugin as ArtifactID, yielding `dev.lerndmina` & `exampleplugin`. I chose Maven as my build tool, leaning on the fact that most tutorials utilize it.
 
-![Specifying Build Settings](/assets/images/posts/first-spigot-plugin/buildsettings.png)
+![Specifying Build Settings](../../assets/images/posts/first-spigot-plugin/buildsettings.png)
 
 Subsequently, I filled out necessary and optional plugin settings, especially paying attention to the Minecraft Version setting, which determines the API version I needed to reference in crafting my plugin.
 
-![Defining Settings](/assets/images/posts/first-spigot-plugin/settings.png)
+![Defining Settings](../../assets/images/posts/first-spigot-plugin/settings.png)
 
 Lastly, I designated a local name for my project and that marked completion of this setup phase!
 
-![Naming the Project](/assets/images/posts/first-spigot-plugin/projname.png)
+![Naming the Project](../../assets/images/posts/first-spigot-plugin/projname.png)
 
 Behold, the glorious main class!
 
-![Displaying the Main Class](/assets/images/posts/first-spigot-plugin/justcreated.png)
+![Displaying the Main Class](../../assets/images/posts/first-spigot-plugin/justcreated.png)
 
 The next step involves server setup for testing.
 
@@ -66,12 +66,12 @@ Sounds easy, right?
 
 Next, we add the settings allowing IntelliJ to launch the server for us. With a single click, we can build and run the plugin. Navigate to your current build config and edit configurations.
 
-![Access Edit Configurations](/assets/images/posts/first-spigot-plugin/editconfigurations-location.png)
+![Access Edit Configurations](../../assets/images/posts/first-spigot-plugin/editconfigurations-location.png)
 
 A new Jar Application is created by clicking `➕ > 📦 Jar Application`, and providing a name for it.
 
 Take a quick look at the image below to follow the process and customize according to your needs.
-![Jar Application Config](/assets/images/posts/first-spigot-plugin/JarApplicationConfig.png)
+![Jar Application Config](../../assets/images/posts/first-spigot-plugin/JarApplicationConfig.png)
 
 Finally, by navigating to the 'before launch' section and clicking the ➕, the build artifact task we created earlier is added.
 

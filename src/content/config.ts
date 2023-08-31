@@ -1,4 +1,17 @@
 import {z, defineCollection} from 'astro:content';
+type InputFormat = import("astro").ImageInputFormat;
+
+interface ImageMetadata {
+	src: string;
+	width: number;
+	height: number;
+	format: InputFormat;
+}
+
+
+
+import defaultImage from "../assets/images/posts/hq-background.png";
+import { any } from 'astro/zod';
 
 const blog = defineCollection({
   schema: z.object({
@@ -6,13 +19,12 @@ const blog = defineCollection({
     date: z.date(),
     author: z.enum(["Adam B", "Adam", "Wild"]),
     image: z.object({
-        src: z.string(),
-        alt: z.string(),
-        aspect_ratio: z.object({
-          x: z.number(),
-          y: z.number(),
-        }),
-      }).default({src: "/assets/images/posts/hq-background.png", alt: "A clean default background image.", aspect_ratio: {x: 1, y: 0.75}}),
+      src: z.string(),
+      width: z.number().optional(),
+      height: z.number().optional(),
+      format: z.string().optional(),
+    }).optional().default(defaultImage),
+    imageTitle: z.string().optional().nullable(),
     description: z.string(),
     draft: z.boolean().default(false),
     category: z.enum(["Coding", "Personal", "General", "University"]),

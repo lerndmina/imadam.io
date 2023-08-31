@@ -24,7 +24,21 @@ var today = yyyy + "/" + mm + "/" + dd;
   <p class="text-xs">
     Built using <Link href="https://astro.build" text="AstroJS" /> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS" />| Last updated {today}
   </p>
+  <p id="chrome-check" class="text-xs invisible">This site is best viewed in a chromium based browser</p>
 </footer>
+
+<script>
+  const isChromium = (window as any).chrome;
+  const hasTouchScreen = window.matchMedia("(hover: none)").matches;
+
+  if (!isChromium && !hasTouchScreen) {
+    // not chrome
+    // Edit chrome-check element
+
+    const chromeCheck = document.querySelector("#chrome-check")!;
+    chromeCheck.classList.remove("invisible");
+  }
+</script>
 
 <script>
   document.querySelector("#copyright")!.textContent = new Date().getFullYear().toString();

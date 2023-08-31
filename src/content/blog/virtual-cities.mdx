@@ -2,19 +2,13 @@
 title: Virtual Cities Winchester Project
 date: 2019-11-15
 author: Adam B
-image:
-  {
-    src: "/assets/images/posts/virtual-cities/splash.png",
-    alt: "Splash screen",
-    aspect_ratio: { x: 3.5, y: 2 },
-  }
+image: { src: "../../assets/images/headers/cities-splash.png", alt: "Splash screen" }
 description: Year 2 Semester 1 Group Project. How can we construct a historically accurate representation of Winchester in the Georgian period?
 draft: false
 category: University
 ---
 
 import Link from "../../components/Link.astro";
-import { Image, Picture } from "@astrojs/image/components";
 
 ## The Question.
 
@@ -26,13 +20,7 @@ We split our group so we could all work on separate buildings within the whole p
   <i>Image below taken from presentation to the client.</i>
 </p>
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-brief.png"}
-  alt={"Virtual Cities Brief Slide"}
-  height={600}
-  aspectRatio="4:2"
-  format={"avif"}
-/>
+![Virtual Cities Brief Slide](../../assets/images/posts/virtual-cities/proj-virtual-cities-brief.png)
 
 ## The Client's resources.
 
@@ -42,13 +30,7 @@ To get started, the Client provided us with some visual research that they previ
   <i>Image below taken from Pintrest collection (Deborah Wilson)</i>
 </p>
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-pintrest.png"}
-  alt={"Screenshot of Pintrest"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Screenshot of Pintrest](../../assets/images/posts/virtual-cities/proj-virtual-cities-pintrest.png)
 
 ## How did I fit in?
 
@@ -57,24 +39,12 @@ The ultimate aim is to use AR (augmented reality) so that users of the product c
 <p style="text-align: center;">
   <i>
     <b>
-      Image credit,{" "}
-      <Link
-        href="https://janeaustens.house/jane-austens-house-from-home/"
-        text="Chawton Cottage Museum Virtual Tour"
-      />
+      Image credit, <Link href="https://janeaustens.house/jane-austens-house-from-home/" text="Chawton Cottage Museum Virtual Tour" />
     </b>
   </i>
 </p>
 
-<Image
-  src={
-    "/assets/images/posts/virtual-cities/proj-virtual-cities-where-fit-in.png"
-  }
-  alt={"Fireplace image"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Fireplace image](../../assets/images/posts/virtual-cities/proj-virtual-cities-where-fit-in.png)
 
 ## Making an old copper kettle
 
@@ -86,25 +56,11 @@ I was now able to start recreating the model. This wasn't as easy as I hoped. Du
 
 To make the initial 3D superstructure, I started with a cylinder and using loop cuts in edit mode, I matched it to the outline of the kettle in my reference imagery. After creating the basic outline, I decided to work next on the spout. I sub-divided the face of the kettle to create some area to work with. To make the spout, I extruded material out from the body, rotating and scaling it as necessary to match the reference imagery. This was more challenging than I originally thought, I had to keep in mind to turn on blender's X-Ray mode, to allow me to select vertices I could not directly see. A few times during this process I forgot to do this, and ended up with a half spout.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle1.png"}
-  alt={"[Kettle Smooth"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Kettle Smooth](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle1.png)
 
 Because the final product was going to be displayed in an AR environment, the spout needed to have a hollow tip. This would provide more realism if the user inspected the model closely. To make the tip, I had to subdivide the end of the spout enough to give me some geometry that I could use to extrude inside of the spout itself. I could then bend the interior of the spout enough, to create the illusion that the hole extended the entire length of the spout. I used this method so I wasn't wasting compute power to render something that would not be seen.
 
-<Image
-  src={
-    "/assets/images/posts/virtual-cities/proj-virtual-cities-kettle3-spout.png"
-  }
-  alt={"Kettle Spout"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Kettle Spout](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle3-spout.png)
 
 ### The Lid
 
@@ -116,54 +72,20 @@ In the reference imagery, the top of the lid had a decorative staircase effect. 
 
 After adjusting the final step, I inserted a face, scaled it down and moved it up, leaving me ready to create the lid handle. I extruded the handle in a similar way to the slope leading up to it. I inserted faces, scaled and moved them to the correct position creating a sloping concave effect with the bulging top that the reference imagery showed.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle4.png"}
-  alt={"Kettle Lid"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
-![]()
+![Kettle Lid](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle4.png)
 
 Using the subdivision surface modifier to interpolate the difference in the geometry, I smoothed out the rough areas, creating the look that I needed. To complete the effect, I added loop cuts at the bottom of the sharp areas of the staircase. This added geometry allowed for most of the detail in the sharp curves to remain while keeping the overall smoothed look.
 
-<Image
-  src={
-    "/assets/images/posts/virtual-cities/proj-virtual-cities-kettle6-lid-smooth.png"
-  }
-  alt={"Kettle Smooth Lid"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
-![]()
+![Kettle Smooth Lid](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle6-lid-smooth.png)
 
 I noticed there is a roughness in the shading when too many vertices terminate to an N-gon that is too large. To prevent this I inserted a final face and scaled it down allowing for the shading to correct itself.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle5-l.png"}
-  alt={"Kettle Subdiv 1"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle5-r.png"}
-  alt={"Kettle Subdiv2"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Kettle Subdiv 1](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle5-l.png)
+![Kettle Subdiv2](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle5-r.png)
 
 I scaled the lid to fit, then moved it to be in line with the body of the kettle.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle7.png"}
-  alt={"scaled kettle lid"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![scaled kettle lid](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle7.png)
 
 ### The Handle
 
@@ -173,13 +95,7 @@ As previously shown I used X-ray mode to allow me to manipulate vertices I could
 
 To finish the design, I applied a subdivision surface modifier to the handle and the connecting pieces, to smooth them out and match the kettle body.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-kettle8.png"}
-  alt={"Applied subdiv to the handle and connectors"}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![Applied subdiv to the handle and connectors](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle8.png)
 
 ### Finishing Touches
 
@@ -195,27 +111,13 @@ To explain the concept of UV unwrapping, I compare it to making cubes out of pap
     </b>
   </i>
 </p>
-<Image
-  src={"/assets/images/posts/virtual-cities/uv-unwrap-demo.png"}
-  alt={"UV unwrap demo - Wikipedia"}
-  width={1200}
-  height={800}
-  format={"avif"}
-/>
+![UV unwrap demo - Wikipedia](../../assets/images/posts/virtual-cities/uv-unwrap-demo.png)
 
 The bulk of work in this project is not well demonstrated when looking at the white box model. By overlaying it with a photorealistic texture and well made [**HDRI**](https://hdrihaven.com/) the observer will fully appreciate the 3D elements of my model. By adding a shiny and reflective texture, the model's appeal immediately improves. I am not experienced in creating photorealistic textures from scratch. I used a website called [Quixel Megascans](https://quixel.com/megascans/). It provides high resolution textures for use with 3D work. Once I had acquired the texture I wanted, a copper scratched material, I applied it to my model and customised it. I decided that the original copper colour was too bright. To rectify this I navigated to the material editor, darkened the base colour of the texture, creating a richer final product.
 
 To finish the kettle, I needed to work on the scen lighting. For this particular model it was quite simple. I added a single point light at an angle a few degrees off from the camera's position. This provides some harsh shadows and fills in for the HDRI's deficiencies. I rendered this scene using the Cycles renderer in Blender. I could then see that the kettle needed a subtle drop shadow, as when I looked at the image on my website, it was definitely missing something. It did not have the punchy effect that I wanted. Adding the drop shadow solved this problem, as it allowed the kettle to stand out from the background on the page.
 
-<Image
-  src={
-    "/assets/images/posts/virtual-cities/proj-virtual-cities-kettle-rendered.png"
-  }
-  alt={"Final kettle render"}
-  width={1200}
-  height={900}
-  format={"avif"}
-/>
+![Final kettle render](../../assets/images/posts/virtual-cities/proj-virtual-cities-kettle-rendered.png)
 
 ## Making The Saucepan
 
@@ -223,74 +125,32 @@ To finish the kettle, I needed to work on the scen lighting. For this particular
 
 The main body started by slicing the top off a sphere in edit mode. Using proportional editing, I moulded the rest of the geometry to match my physical reference. I extruded a flat base, then using extrusion and rotation, I created the lip of the saucepan. Finally I added the subdivision surface modifier to smooth out the surface.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-pot1.png"}
-  alt={""}
-  width={1200}
-  height={800}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/proj-virtual-cities-pot1.png)
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-pot2.png"}
-  alt={""}
-  width={1200}
-  height={800}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/proj-virtual-cities-pot2.png)
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-pot3.png"}
-  alt={""}
-  width={1200}
-  height={800}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/proj-virtual-cities-pot3.png)
 
 ### Handle
 
 The handle was surprisingly complicated. I started with a cylinder, scaled and rotated it into position. Initially my cylinder had too many sides so I deleted it and remade with six sides. As my pan was currently upside down I needed to rotate it and then in edit mode I added loop cuts along the handle giving me geometry to work with. I then had to ensure the handle was not sticking through the pan.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/proj-virtual-cities-pot4.png"}
-  alt={""}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/proj-virtual-cities-pot4.png)
 
 Using proportional editing I manipulated the handle to be more ergonomic. I then realised the handle was too short so added more length.
 To match my reference material, the handle required a hole in the end to hang it up. I tried to use a Boolean cutter but it looked wrong. Where did the hole come from? Where did the material go when it was punched out? This pan was made during a period of time where the average blacksmith would not have had access to modern technology like electric drills. The blacksmith would have used a punch and anvil to remove material. The copper would have been pushed outwards creating a bulging effect. A Boolean cutter does not do that. At this stage I removed the hole to continue work on the rest of the pan.
 
 _Handle using Boolean modifier_
 
-<Image
-  src={"/assets/images/posts/virtual-cities/pot-handle-example1.png"}
-  alt={""}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/pot-handle-example1.png)
 
 I UV unwrapped the pan, marking the seams as needed.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/pot-uv-example.png"}
-  alt={""}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/pot-uv-example.png)
 
 I applied a copper texture from <Link href="https://quixel.com/megascans/" text="Quixel Megascans"/> and then a global light. Later in the process I added a further light inside the pan to bring up the visual appeal of the render. The current texture was too bright, so I referred back to the kettle model to take inspiration for the texture colour. I added an <Link href="https://hdrihaven.com/" text=""HDRI /> to fill out the lighting and reflections and then a blank backdrop. Using <Link href="https://quixel.com/megascans/" text="Quixel Megascans"/> again I added a backdrop texture. From the video you can see I worked a long time on the marble background, but in the end decided that would be something to achieve when working with my partner, inserting objects into the 3D environment. I reflected that my task at this point was to complete and demonstrate the object without distracting viewers from it, and so used a black backdrop to keep the focus on the 3D model itself.
 
-<Image
-  src={"/assets/images/posts/virtual-cities/pot-handle-no-hole.png"}
-  alt={""}
-  width={1200}
-  height={600}
-  format={"avif"}
-/>
+![](../../assets/images/posts/virtual-cities/pot-handle-no-hole.png)
 
 Referring back to my reference imagery, I realised the handle still needed a hole. The video for creating the hole is extended! I attempted the process several times. Each time it was a nightmarish exercise in futility! I had to redo the process at least four times. I got it working by manually creating the geometry I needed. I split the handle in half, mirrored it, and moulded it into a keyhole like shape for hanging on a rack. It took many attempts to fix the topology but eventually I achieved the shape I desired that matched my reference material.
 
@@ -301,5 +161,5 @@ Referring back to my reference imagery, I realised the handle still needed a hol
 </p>
 
 <a href="https://www.youtube-nocookie.com/embed/fPqI8AraTCg" target="_new">
-  <img src="/assets/images/posts/virtual-cities/pot-handle-thumb.png" />
+  ![](../../assets/images/posts/virtual-cities/pot-handle-thumb.png)
 </a>

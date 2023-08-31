@@ -2,6 +2,7 @@
 @tailwind base;
 .link:hover{
     @apply text-gradient-anim;
+    transition: all 3000ms ease;
 }
 .grad{
     @apply bg-gradient-to-r from-gradient1 to-gradient2 text-transparent bg-clip-text;
@@ -10,6 +11,7 @@
 html{
     @apply text-notwhite bg-notblack; 
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    scrollbar-gutter: stable;
 }
 
 .btn{
@@ -77,11 +79,11 @@ html{
 
 @keyframes background-pan {
     from {
-      background-position: 0% center;
+      background-position: +100% center;
     }
     
     to {
-      background-position: -200% center;
+      background-position: -100% center;
     }
   }
 
@@ -93,7 +95,7 @@ html{
     rgba(250, 75, 0, 1),
     rgba(224, 11, 139, 1),
   );
-  background-size: 200%;
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   white-space: nowrap;
