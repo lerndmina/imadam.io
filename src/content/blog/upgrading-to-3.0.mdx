@@ -7,7 +7,7 @@ image: {
 }
 imageTitle: "Astro 3.0 header image, taken from Astro.build"
 description: Here's a template for a post, it's wonderful
-draft: true
+draft: false
 category: Personal
 ---
 
@@ -27,7 +27,7 @@ The first step to upgrade to Astro 3.0 was to update the dependencies in my pack
 
 
 ## ViewTransitions
-I decided to try out the new view transitions feature that Astro 3.0 introduced. View transitions allow you to create smooth animations between pages using the native CSS `@view-transition` rule. This feature is currently only supported by Chromium browsers, but Astro provides a fallback mechanism for other browsers. 
+I decided to try out the new view transitions feature that Astro 3.0 introduced. View transitions allow you to create smooth animations between pages using the native CSS `@view-transition` rule. This feature is currently only supported by <Link href="https://shrt.zip/plFDv" text="Chromium browsers"/>, but Astro provides a fallback mechanism for other browsers (*This didn't end up working*). 
 
 To add it to my website I imported the `viewtransitions` component from `astrojs/viewtransitions` into my global `Head.astro` component that I have on every page. I then added `<ViewTransitions />` to the bottom of the `Head.astro` component. Here's how that looks:
 
@@ -78,7 +78,7 @@ There's not really much to say about this other than I had to change most of how
 ```
 
 
-## Annoying Bugs
+## An Annoying Bug Finally Squashed 🐞
 
 I noticed that the scrollbar would shift the nav left and right when changing between a page that doesn't scroll and a page that does. After a bit of *google-fu* I was able to fix this by editing my `global.css` and adding the following:
 
