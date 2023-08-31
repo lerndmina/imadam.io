@@ -15,33 +15,34 @@ const url = `/blog/${post.slug}/`;
 // console.log(`POST URLS ${url}`);
 ---
 
-<div class="p-10 max-w-5xl text-notwhite mx-auto">
+<div class="p-10 lg:max-w-5xl max-w-xl text-notwhite mx-auto">
   <!--Card 1-->
   <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
       <img
-        class=" sm:p5-10 pl-5 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         title={`A header image for the post "${title}"`}
         src={image.src}
         alt={imageTitle || `A header image for the post "${title}"`}
         transition:name={"img-" + post.slug}
       />
     </a>
-    <div class="px-4 flex flex-col lg:mx-auto lg:text-center justify-between leading-norma">
+    <div class="pr-4 flex flex-col lg:max-w-md lg:mx-auto text-center lg:justify-between justify-center">
       <div class="mb-8">
         <div class="font-bold text-xl mb-2" transition:name={"title-" + post.slug}>
           <Link href={url} text={title} />
         </div>
         <p class="text-base">{description}</p>
       </div>
-      <div class="flex items-center">
-        <div class="text-sm text-left">
+      <!-- Desktop View -->
+      <div class="flex lg:items-center self-center text-center">
+        <div class="lg:text-sm lg:text-left font-semibold">
           <p>
             <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
           </p>
           <p transition:name={"author-" + post.slug}>
-            <Link href={`/blog/author/${slugify(author)}/`} text={author} /> •
-            {formatDate(date)}
+            <Link href={`/blog/author/${slugify(author)}/`} text={author} /><span> •
+              {formatDate(date)}</span>
           </p>
         </div>
       </div>
