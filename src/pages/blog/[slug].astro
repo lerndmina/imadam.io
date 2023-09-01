@@ -42,7 +42,7 @@ const { Content } = await post.render();
       </div>
     </header>
     <div class="flex justify-center rounded-md overflow-hidden mx-auto p-10 pt-20">
-      <img class="drop-shadow-lg" src={image.src} alt={imageTitle} title={imageTitle} transition:name={"img-" + post.slug} />
+      <Image class="drop-shadow-lg" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"}/>
     </div>
     <div class="flex justify-center sm:px-8 px-16">
       <div class="content prose prose-invert">

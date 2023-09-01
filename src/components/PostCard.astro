@@ -19,13 +19,7 @@ const url = `/blog/${post.slug}/`;
   <!--Card 1-->
   <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
-      <img
-        class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-        title={`A header image for the post "${title}"`}
-        src={image.src}
-        alt={imageTitle || `A header image for the post "${title}"`}
-        transition:name={"img-" + post.slug}
-      />
+      <Image class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"}/>
     </a>
     <div class="pr-4 flex flex-col lg:max-w-md lg:mx-auto text-center lg:justify-between justify-center">
       <div class="mb-8">
