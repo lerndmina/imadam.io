@@ -17,14 +17,14 @@ import { Image } from "astro:assets";
 
 
 <p class="text-xs">*Compulsory introduction for those new to astro*</p>
-<Link href="https://astro.build" text="Astro" /> is fairly new framework for building fast and modern websites with your favorite frontend tools. <Link href="https://astro.build/blog/astro-3/" text="Recently, Astro released its version 3.0" />
+<Link href="https://astro.build" text="Astro" /> is a fairly new framework for building fast and modern websites with your favorite frontend tools. <Link href="https://astro.build/blog/astro-3/" text="Recently, Astro released its version 3.0" />
 , which introduced some major changes and improvements. In this post, I will share how I upgraded my website to Astro 3.0 and what challenges I faced and solved along the way. I will also show you some
-of the features and benefits of using Astro 3.0, such as view transitions & image optimizations.
+of the features and benefits of using Astro 3.0, such as view transitions & image optimisations.
 
 The first step to upgrade to Astro 3.0 was to update the dependencies in my package.json file. I updated astro, astrojs/mdx, astrojs/tailwind, and tailwindcss to their latest versions. Then I ran `yarn` to install the updated packages.
 
 
-## ViewTransitions
+## View Transitions
 I decided to try out the new view transitions feature that Astro 3.0 introduced. View transitions allow you to create smooth animations between pages using the native CSS `@view-transition` rule. This feature is currently only supported by <Link href="https://shrt.zip/plFDv" text="Chromium browsers"/>, but Astro provides a fallback mechanism for other browsers (*This didn't end up working*). 
 
 To add it to my website I imported the `viewtransitions` component from `astrojs/viewtransitions` into my global `Head.astro` component that I have on every page. I then added `<ViewTransitions />` to the bottom of the `Head.astro` component. Here's how that looks:
