@@ -44,6 +44,8 @@ Clone the project
 ```
 
 The directory `./dist` contains the static HTML files.
+
+
 ## Tech Stack
 
 **Client:** [Astro](https://astro.build), [TailwindCSS](https://tailwindcss.com)

@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet"><meta name="theme-color" content="#E93679"><meta name="darkreader-lock"><meta name="description" content="An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path."><!-- Open Graph / Facebook --><meta property="og:title" content="Lerndmina.Dev • Journey into Spigot: Creating My First Plugin"><meta property="og:type" content="website"><meta property="og:url" content="https://lerndmina.dev/"><meta property="og:description" content="An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path."><meta property="og:image" content="/assets/img/logos/logo-name-bottom-min-transparent.png"><meta property="og:site_name" content="Lerndmina.Dev"><!-- Twitter --><meta property="twitter:title" content="Lerndmina.Dev • Journey into Spigot: Creating My First Plugin"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://lerndmina.dev/"><meta property="twitter:description" content="An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path."><meta property="twitter:image" content="/assets/img/logos/logo-name-bottom-min-transparent.png"><title>Lerndmina.Dev • Journey into Spigot: Creating My First Plugin</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="none"><link rel="stylesheet" href="/_astro/404.41ccc4ac.css" /><script type="module" src="/_astro/hoisted.08d6a6f3.js"></script><style>[data-astro-transition-scope="astro-5m2jsxon-1"] { view-transition-name: title-first-spigot-plugin; }@layer astro { ::view-transition-old(title-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-5m2jsxon-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-5m2jsxon-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-5m2jsxon-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-5m2jsxon-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-5m2jsxon-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-5m2jsxon-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-5m2jsxon-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-5m2jsxon-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-2kw73nlz-2"] { view-transition-name: author-first-spigot-plugin; }@layer astro { ::view-transition-old(author-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(author-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(author-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(author-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-2kw73nlz-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-2kw73nlz-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-2kw73nlz-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-2kw73nlz-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-2kw73nlz-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-2kw73nlz-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-2kw73nlz-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-2kw73nlz-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-7xt5eaw6-3"] { view-transition-name: img-first-spigot-plugin; }@layer astro { ::view-transition-old(img-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(img-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(img-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(img-first-spigot-plugin) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-7xt5eaw6-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-7xt5eaw6-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-7xt5eaw6-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-7xt5eaw6-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-7xt5eaw6-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-7xt5eaw6-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-7xt5eaw6-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-7xt5eaw6-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-zscz5gm2-4"] { view-transition-name: nav; }@layer astro { ::view-transition-old(nav) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(nav) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(nav) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(nav) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-zscz5gm2-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-zscz5gm2-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-zscz5gm2-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-zscz5gm2-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-zscz5gm2-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-zscz5gm2-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-zscz5gm2-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-zscz5gm2-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body class="h-screen bg-notblack"><div id="content-wrap" class="px-1 pb-10" data-astro-transition-scope="astro-zscz5gm2-4"><div class="block mr-auto ml-1 h-auto font-sans text-xl font-normal"><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link from-gradient1 to-gradient2 font-bold" href="/">&lt;/Lerndmina.Dev&gt;</a></div><div class="font-sans text-center text-2xl md:text-3xl text-notwhite"><!-- Grab the nav list from data/navdata to populate the nav list --><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link px-2" href="/">Home</a><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link px-2" href="/blog/">Blog</a><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link px-2" href="/contact/">Contact Me</a></div></div><div class="max-w-4xl m-auto"><header><div class="mx-auto pb-10 container text-center"><h1 class="text-5xl pb-1" data-astro-transition-scope="astro-5m2jsxon-1">Journey into Spigot: Creating My First Plugin</h1><p class="text-md" data-astro-transition-scope="astro-2kw73nlz-2">
+by <a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="/blog/author/adam-b/">Adam B</a> • 13/08/2022</p><small class="text-sm"><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="/blog/category/coding/"># Coding</a></small></div></header><div class="flex justify-center rounded-md overflow-hidden mx-auto p-10 pt-20"><img src="/_astro/tech-background.2bd4b904_ZJP9iW.avif" class="drop-shadow-lg" alt="An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path." title="An introspective account of my journey to learn Spigot by creating my first plugin. This post serves as a reflection and guide for those embarking on a similar path." data-astro-transition-scope="astro-7xt5eaw6-3" width="1920" height="1359" loading="lazy" decoding="async"></div><div class="flex justify-center sm:px-8 px-16"><div class="content prose prose-invert"><!-- ! Page content goes here --><h1 id="a-new-journey">A New Journey</h1>
+<p>Ready for embarkation, let’s begin.</p>
+<h2 id="step-1-installing-essential-plugins">Step 1: Installing Essential Plugins</h2>
+<p>In my quest to delve into the realm of creating Minecraft Plugins using Java, my first crucial decision was choosing an appropriate <a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>.</p>
+<p>I opted for <a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://www.jetbrains.com/idea/">IntelliJ</a>. Its free accessibility for personal use, aesthetic dark theme, and extensive library of plugins proved too enticing to resist. In aid of this journey, I downloaded several plugins:</p>
+<ul>
+<li>
+<a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://plugins.jetbrains.com/plugin/10044-atom-material-icons">Atom Material Icons</a>
+</li>
+<li>
+<a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://plugins.jetbrains.com/plugin/8006-material-theme-ui">Material Theme UI</a>
+</li>
+<li>
+<a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://plugins.jetbrains.com/plugin/8327-minecraft-development">Minecraft Development</a>
+</li>
+<li><a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://plugins.jetbrains.com/plugin/8575-nyan-progress-bar">Nyan Progress Bar</a> (Because why not?)</li>
+</ul>
+<h2 id="step-2-building-a-project">Step 2: Building A Project</h2>
+<p>Using the Minecraft Development plugin I was able to generate a ready-to-use project, designed specifically for working with Spigot. The plugin provides a wizard to guide you through the process of creating a new project.</p>
+<p><img src="/_astro/chooseapi.aaa9e65a_Z1DzkGQ.webp" alt="Choosing API" width="806" height="481" loading="lazy" decoding="async"></p>
+<p>To adhere to software engineering best practices, I used my Top-Level Domain (TLD) and website name for the GroupId and coined the name of the plugin as ArtifactID, yielding <code>dev.lerndmina</code> &amp; <code>exampleplugin</code>. I chose Maven as my build tool, leaning on the fact that most tutorials utilize it.</p>
+<p><img src="/_astro/buildsettings.960f0c0c_Z13s1hv.webp" alt="Specifying Build Settings" width="806" height="212" loading="lazy" decoding="async"></p>
+<p>Subsequently, I filled out necessary and optional plugin settings, especially paying attention to the Minecraft Version setting, which determines the API version I needed to reference in crafting my plugin.</p>
+<p><img src="/_astro/settings.6df657fd_Z10UoTb.webp" alt="Defining Settings" width="795" height="557" loading="lazy" decoding="async"></p>
+<p>Lastly, I designated a local name for my project and that marked completion of this setup phase!</p>
+<p><img src="/_astro/projname.1343c1a8_2rWEh3.webp" alt="Naming the Project" width="796" height="94" loading="lazy" decoding="async"></p>
+<p>Behold, the glorious main class!</p>
+<p><img src="/_astro/justcreated.86b613a4_Lhqt8.webp" alt="Displaying the Main Class" width="1388" height="606" loading="lazy" decoding="async"></p>
+<p>The next step involves server setup for testing.</p>
+<h2 id="step-3-establishing-a-test-server">Step 3: Establishing A Test Server</h2>
+<p>For my testing servers, my preference leans towards Paper since it offers both speed and stability. Let’s navigate to <a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://papermc.io/downloads">papermc.io</a>, and download the version we defined earlier in the plugin settings - <code>1.19</code>.</p>
+<p>We create a folder to host our Minecraft Server, and move the server.jar file into it. Make sure to remember the jar file’s name as it will be required later.</p>
+<p>Returning to IntelliJ, the path to navigate is:<br/>
+<code>File &gt; Project Structure &gt; Artifacts &gt; ➕ &gt; JAR &gt; From Modules With Dependencies...</code></p>
+<p>We specify the path to the Main Class, which in this case is <code>dev.lerndmina.exampleplugin.ExamplePlugin</code> and affirm with OK. The final alteration here pertains to the Output directory, set this to the plugins folder inside your Minecraft Server folder.</p>
+<p>Sounds easy, right?</p>
+<p>Next, we add the settings allowing IntelliJ to launch the server for us. With a single click, we can build and run the plugin. Navigate to your current build config and edit configurations.</p>
+<p><img src="/_astro/editconfigurations-location.9ceba7fc_qa21u.webp" alt="Access Edit Configurations" width="1068" height="317" loading="lazy" decoding="async"></p>
+<p>A new Jar Application is created by clicking <code>➕ &gt; 📦 Jar Application</code>, and providing a name for it.</p>
+<p>Take a quick look at the image below to follow the process and customize according to your needs.
+<img src="/_astro/JarApplicationConfig.b774a20e_9Tzxn.webp" alt="Jar Application Config" width="716" height="503" loading="lazy" decoding="async"></p>
+<p>Finally, by navigating to the ‘before launch’ section and clicking the ➕, the build artifact task we created earlier is added.</p>
+<p>And Voila! With just one push of a button, we can build our plugin and spin up a server to test it. Not too daunting after all, right?</p></div></div></div><footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg"><p><noscript class="font-bold text-red-500 text-xl">Javascript is disabled, you may face errors or strangeness. <a href="hhttps://support.clio.com/hc/en-us/articles/360040902634-How-to-Enable-JavaScript-in-Your-Web-Browser" class="font-bold text-red-500">Enable it here.</a></noscript></p><p class="font-semibold"><a class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://lerndmina.dev">Lerndmina.Dev</a> | Copyright &copy; <span id="copyright"></span> | All rights reserved
+</p><p class="text-xs">
+Built using <a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://astro.build">AstroJS</a> 🚀 & <a target="target=&#34;_blank&#34;" class="bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link " href="https://tailwindcss.com">TailwindCSS</a>| Last updated 2023/09/01</p><p id="chrome-check" class="text-xs invisible">This site is best viewed in a chromium based browser</p></footer></body></html>
