@@ -101,9 +101,9 @@ import MainLayout from "../layouts/MainLayout.astro";
     //   typeWrite();
     // }
 
-    document.addEventListener("astro:page-load", () => {
+    document.addEventListener("astro:after-swap", () => {
       typeWrite();
-    }, { once: false });
+    });
 
   </script>
 </MainLayout>
