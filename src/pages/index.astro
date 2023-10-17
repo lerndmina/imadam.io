@@ -81,6 +81,9 @@ import MainLayout from "../layouts/MainLayout.astro";
       }, delta);
     };
 
+    // This is a hack to make sure the typewriter effect works on the first page load and after a page swap.
+    // It's so fucking dumb, there's probably a better way but it's 5am and I'm tired.
+
     document.addEventListener("astro:page-load", () => {
       const typeWrite = function () {
         var elements = document.getElementsByClassName("typewrite");
