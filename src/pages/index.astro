@@ -92,18 +92,18 @@ import MainLayout from "../layouts/MainLayout.astro";
       }
       // INJECT CSS
       var css = document.createElement("style");
-      css.format = "text/css";
+      css.type = "text/css";
       css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
       document.body.appendChild(css);
     };
-    const isChromium = (window as any).chrome;
-    if (!isChromium) {
-      typeWrite();
-    }
+    // const isChromium = (window as any).chrome;
+    // if (!isChromium) {
+    //   typeWrite();
+    // }
 
     document.addEventListener("astro:page-load", () => {
       typeWrite();
-    });
+    }, { once: false }});
 
   </script>
 </MainLayout>
