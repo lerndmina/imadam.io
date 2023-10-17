@@ -1,4 +1,5 @@
 ---
+import type { renderComponent } from "astro/compiler-runtime";
 import MainLayout from "../layouts/MainLayout.astro";
 // Component Imports
 
@@ -8,33 +9,38 @@ import MainLayout from "../layouts/MainLayout.astro";
 
 <MainLayout title="Home">
   <div class="text-center pt-5 text-6xl">
-    <p>Hey, I'm <span class="grad">Adam</span>.</p>
-    <p class="text-4xl pt-3">
-      <type class="typewrite grad" data-period="2000" data-type='[ "I make Websites", "I run Game Servers", "I&apos;m learning Java", "I enjoy tinkering with software" ]'></type><noscript class="grad"
+    <p>👋 I'm <span class="grad">Adam</span>.</p>
+    <p class="text-4xl pt-3">A <span class="grad"><span id="age">00</span> year old</span> developer from the UK.</p>
+    <p class="text-4xl">
+      <type class="typewrite grad" data-period="2000" data-type='[ "I Make Webites", "I Maintain Servers", "I Write Discord Bots" ]'></type><noscript class="grad"
         >I make Websites <i class="grad">ps, your javascript is disabled.</i></noscript
       >
     </p>
+
+    <p class="text-base pt-12">
+      Click on the <span class="grad"><b>icons</b></span> below to learn more about me.
+    </p>
   </div>
   <!-- Socials & Stuff -->
-  <p class="text-center text-xl pt-12"></p>
+  <p class="text-center text-xl"></p>
   <div class="grid grid-flow-col auto-cols-auto justify-center pt-5">
     <a href="https://discord.com/users/234439833802637312" target="_blank">
-      <div class="discord-sprite m-2"></div>
+      <div class="discord-sprite m-2" title="My Discord"></div>
     </a>
 
     <a href="https://www.linkedin.com/in/adambolton53/" target="_blank">
-      <div class="linkedin-sprite m-2"></div>
+      <div class="linkedin-sprite m-2" title="Linkedin"></div>
     </a>
 
     <a href="https://www.reddit.com/user/AWildLerndmina" target="_blank">
-      <div class="reddit-sprite m-2"></div>
+      <div class="reddit-sprite m-2" title="Reddit"></div>
     </a>
 
     <a href="https://github.com/lerndmina" target="_blank">
-      <div class="github-sprite m-2"></div>
+      <div class="github-sprite m-2" title="Github (See what I've been up to)"></div>
     </a>
     <a href="mailto:adam@lerndmina.dev" target="_new">
-      <div class="email-sprite m-2"></div>
+      <div class="email-sprite m-2" title="Email Me!"></div>
     </a>
   </div>
   <script>
@@ -47,6 +53,12 @@ import MainLayout from "../layouts/MainLayout.astro";
       this.tick();
       this.isDeleting = false;
     };
+
+    function calculateAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday;
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
 
     TxtType.prototype.tick = function () {
       var i = this.loopNum % this.toRotate.length;
@@ -81,16 +93,15 @@ import MainLayout from "../layouts/MainLayout.astro";
       }, delta);
     };
 
-    // This is a hack to make sure the typewriter effect works on the first page load and after a page swap.
-    // It's so fucking dumb, there's probably a better way but it's 5am and I'm tired.
-
     const typeWrite = function () {
     var elements = document.getElementsByClassName("typewrite");
     for (var i = 0; i < elements.length; i++) {
       var toRotate = elements[i].getAttribute("data-type");
       var period = elements[i].getAttribute("data-period");
       if (toRotate) {
-        new TxtType(elements[i], JSON.parse(toRotate), period);
+        var array = JSON.parse(toRotate);
+        array = array.sort((a: string, b: string) => 0.5 - Math.random());
+        new TxtType(elements[i], array, period);
       }
     }
     // INJECT CSS
@@ -100,6 +111,8 @@ import MainLayout from "../layouts/MainLayout.astro";
     document.body.appendChild(css);
   };
 
+  // This is a hack to make sure the typewriter effect works on the first page load and after a page swap.
+  // It's so fucking dumb, there's probably a better way but it's 5am and I'm tired.
   document.addEventListener("astro:page-load", () => {
     typeWrite();
   }, { once: true });
@@ -107,5 +120,11 @@ import MainLayout from "../layouts/MainLayout.astro";
   document.addEventListener("astro:after-swap", () => {
     typeWrite();
   });
+
+  const ageElement = document.getElementById("age");
+  if (ageElement){
+    var date = new Date("2000-04-04")
+    ageElement.innerHTML = calculateAge(date).toString()
+  }
   </script>
 </MainLayout>
