@@ -98,7 +98,7 @@ import MainLayout from "../layouts/MainLayout.astro";
         document.body.appendChild(css);
       };
       typeWrite();
-    });
+    }, { once: true });
 
     document.addEventListener("astro:after-swap", () => {
       const typeWrite = function () {
