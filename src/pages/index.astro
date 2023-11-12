@@ -2,6 +2,7 @@
 import type { renderComponent } from "astro/compiler-runtime";
 import MainLayout from "../layouts/MainLayout.astro";
 // Component Imports
+import { Prism } from '@astrojs/prism';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -12,7 +13,7 @@ import MainLayout from "../layouts/MainLayout.astro";
     <h1><span title="Hey!">👋</span> I'm <span class="grad">Adam</span>.</h1>
     <h2 class="text-4xl pt-3">I'm a <span class="grad"><span id="age">23</span> year old</span> developer from the UK.</h2>
     <h3 class="text-3xl">
-      <type class="typewrite grad" data-period="2000" data-type='[ "I Make Websites", "I Maintain Servers", "I Write Discord Bots", "I write code for fun" ]'></type><noscript class="grad"
+      <type class="typewrite grad" data-period="2000" data-type='[ "I found this effect on StackOverflow", "I Make Websites", "I Maintain Servers", "I Write Discord Bots", "I write code for fun" ]'></type><noscript class="grad"
         >I make Websites, Discord bots & write code in JS / TS</noscript
       >
     </h3>
@@ -40,6 +41,8 @@ import MainLayout from "../layouts/MainLayout.astro";
       <div class="email-sprite m-2" title="Email Me!"></div>
     </a> -->
   </div>
+
+  
   <script>
     var TxtType = function (el, toRotate, period) {
       this.toRotate = toRotate;

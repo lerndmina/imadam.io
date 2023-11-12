@@ -3,10 +3,10 @@ export const navData = [
         name: "Home",
         path: "/"
     },
-    {
-        name: "About Me",
-        path: "/about/"
-    },
+    // {
+    //     name: "About Me",
+    //     path: "/about/"
+    // },
     {
         name: "Blog",
         path: "/blog/"
