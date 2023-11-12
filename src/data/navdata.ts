@@ -4,6 +4,10 @@ export const navData = [
         path: "/"
     },
     {
+        name: "About Me",
+        path: "/about/"
+    },
+    {
         name: "Blog",
         path: "/blog/"
     },

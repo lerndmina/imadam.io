@@ -8,6 +8,13 @@ var TxtType = function (el, toRotate, period) {
   this.isDeleting = false;
 };
 
+function calculateAge(birthday) {
+  // birthday is a date
+  var ageDifMs = Date.now() - birthday;
+  var ageDate = new Date(ageDifMs); // miliseconds from epoch
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
 TxtType.prototype.tick = function () {
   var i = this.loopNum % this.toRotate.length;
   var fullTxt = this.toRotate[i];
@@ -47,16 +54,34 @@ const typeWrite = function () {
     var toRotate = elements[i].getAttribute("data-type");
     var period = elements[i].getAttribute("data-period");
     if (toRotate) {
-      new TxtType(elements[i], JSON.parse(toRotate), period);
+      var array = JSON.parse(toRotate);
+      array = array.sort((a: string, b: string) => 0.5 - Math.random());
+      new TxtType(elements[i], array, period);
     }
   }
   // INJECT CSS
   var css = document.createElement("style");
-  css.format = "text/css";
+  css.type = "text/css";
   css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
   document.body.appendChild(css);
 };
 
-document.addEventListener("astro:load", () => {
+// This is a hack to make sure the typewriter effect works on the first page load and after a page swap.
+// It's so fucking dumb, there's probably a better way but it's 5am and I'm tired.
+document.addEventListener(
+  "astro:page-load",
+  () => {
+    typeWrite();
+  },
+  { once: true }
+);
+
+document.addEventListener("astro:after-swap", () => {
   typeWrite();
 });
+
+const ageElement = document.getElementById("age");
+if (ageElement) {
+  var date = new Date("2000-04-04");
+  ageElement.innerHTML = calculateAge(date).toString();
+}

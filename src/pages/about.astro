@@ -1,0 +1,20 @@
+---
+import type { renderComponent } from "astro/compiler-runtime";
+import MainLayout from "../layouts/MainLayout.astro";
+import Link from "../components/Link.astro";
+// Component Imports
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<MainLayout title="About">
+  <div class="text-center max-w-xl mx-auto">
+    <h1 class="text-center text-5xl">
+      Hello there!
+    </h1>
+    <p class="pt-5">
+      As you can see I'm Adam. I'm a software engineer and I love to build things. I'm currently working on <b><Link href="https://thalwyrn.com" text="Thalwyrn"></b>, a little minecraft RPG server with a custom resourcepack. I mainly act as a Sysadmin and Backend Developer for the project, keeping it running so the team can push updates and make meaningful changes. 
+    </p>
+  </div>
+</MainLayout>
