@@ -7,9 +7,21 @@ var mm = String(date.getMonth() + 1).padStart(2, "0"); //January is 0!
 var yyyy = date.getFullYear();
 
 var today = yyyy + "/" + mm + "/" + dd;
+
+import dotenv from 'dotenv'; 
+dotenv.config();
+
+const isProd = process.env.ISPROD;
+
+var indevMsg = ``
+
+if (!isProd) {
+  indevMsg = `<p class="grad font-bold">This is a development build, expect bugs and issues.</p>`
+}
 ---
 
 <footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg">
+  <Fragment set:html={indevMsg} />
   <p>
     <noscript class="font-bold text-xl">Javascript is disabled, you may face errors or strangeness. 
       <a href="https://www.enable-javascript.com"
