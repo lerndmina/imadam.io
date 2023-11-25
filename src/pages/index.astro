@@ -2,17 +2,6 @@
 import MainLayout from "../layouts/MainLayout.astro";
 // Component Imports
 
-import dotenv from 'dotenv'; 
-dotenv.config();
-
-const isProd = process.env.ISPROD;
-
-if (isProd) {
-  console.log("Production Mode");
-} else {
-  console.log("Development Mode");
-}
-
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
