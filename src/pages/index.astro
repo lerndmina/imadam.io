@@ -2,6 +2,17 @@
 import MainLayout from "../layouts/MainLayout.astro";
 // Component Imports
 
+import dotenv from 'dotenv'; 
+dotenv.config();
+
+const isProd = process.env.ISPROD;
+
+if (isProd) {
+  console.log("Production Mode");
+} else {
+  console.log("Development Mode");
+}
+
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
@@ -92,7 +103,7 @@ import MainLayout from "../layouts/MainLayout.astro";
       }
       // INJECT CSS
       var css = document.createElement("style");
-      css.format = "text/css";
+      css.type = "text/css";
       css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
       document.body.appendChild(css);
     };
