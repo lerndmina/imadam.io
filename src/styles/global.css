@@ -12,6 +12,7 @@ html{
     @apply text-notwhite bg-notblack; 
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     scrollbar-gutter: stable;
+    background-color: rgb(45, 46, 46)
 }
 
 .btn{

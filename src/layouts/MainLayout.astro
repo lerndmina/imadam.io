@@ -6,10 +6,10 @@ interface Props {
 
 var { 
 	title, 
-	description = `Welcome to Lerndmina.Dev\nI like to make cool web stuff. Come take a look!`
+	description = `Hey I'm Adam\nI like to make cool web stuff. Come take a look!`
 } = Astro.props as Props;
 
-title = `Lerndmina.Dev • ${title}`
+const longTitle = `ImAdam.io • ${title}`
 
 
 import '../styles/global.css'
@@ -19,7 +19,7 @@ import Head from '../components/Head.astro'
 ---
 
 <html lang="en">
-	<Head title={title} description={description}/>
+	<Head title={longTitle} description={description}/>
 	<body class="h-screen bg-notblack">
 		<Nav />
 

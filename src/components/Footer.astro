@@ -23,33 +23,48 @@ if (!isProd) {
 <footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg">
   <Fragment set:html={indevMsg} />
   <p>
-    <noscript class="font-bold text-red-500 text-xl"
-      >Javascript is disabled, you may face errors or strangeness. <a
-        href="hhttps://support.clio.com/hc/en-us/articles/360040902634-How-to-Enable-JavaScript-in-Your-Web-Browser"
-        class="font-bold text-red-500">Enable it here.</a
-      ></noscript
-    >
+    <noscript class="font-bold text-xl">Javascript is disabled, you may face errors or strangeness. 
+      <a href="https://www.enable-javascript.com"
+        class="font-bold grad">Enable it here.</a></noscript>
   </p>
   <p class="font-semibold">
-    <Link href="https://lerndmina.dev" text="Lerndmina.Dev" /> | Copyright &copy; <span id="copyright"></span> | All rights reserved
+    <Link href="https://imadam.io" text="ImAdam.io" /> | Copyright &copy; <span id="copyright"></span> | All rights reserved
   </p>
   <p class="text-xs">
-    Built using <Link href="https://astro.build" text="AstroJS" /> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS" />| Last updated {today}
+    Built using <Link href="https://astro.build" text="AstroJS"/> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS"/>| Last updated {today}
   </p>
-  <p id="chrome-check" class="text-xs invisible">This site is best viewed in a chromium based browser</p>
+  <p id="chrome-check" class="text-xs hidden max-w-sm text-center mx-auto"><br /> This site is best viewed in a chromium browser due to my use of <Link href="https://caniuse.com/mdn-api_viewtransition" text="ViewTransitions" extraclasses="font-bold"/> for seamless page navigation. During the next page refresh I will hide this message until the browser is closed. :)</p>
 </footer>
 
 <script>
   const isChromium = (window as any).chrome;
   const hasTouchScreen = window.matchMedia("(hover: none)").matches;
+  function isChrome() {
+    if (!isChromium && !hasTouchScreen) {
+      // not chrome
+      // Edit chrome-check element
+      const userHasSeenKey = "userHasSeenChromeCheck";
+      const userHasSeen = sessionStorage.getItem(userHasSeenKey);
+      const isLocalhost = window.location.hostname === "localhost"
 
-  if (!isChromium && !hasTouchScreen) {
-    // not chrome
-    // Edit chrome-check element
+      if (userHasSeen && !isLocalhost) {
+        return;
+      }
+      
+      sessionStorage.setItem(userHasSeenKey, "true");
 
-    const chromeCheck = document.querySelector("#chrome-check")!;
-    chromeCheck.classList.remove("invisible");
+      const chromeCheck = document.querySelector("#chrome-check")!;
+      chromeCheck.classList.remove("hidden");
+    }
   }
+
+  document.addEventListener("astro:page-load", () => {
+    isChrome();
+  }, { once: true });
+
+  document.addEventListener("astro:after-swap", () => {
+    isChrome();
+  });
 </script>
 
 <script>

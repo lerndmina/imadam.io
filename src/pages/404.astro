@@ -1,13 +1,14 @@
 ---
 import Link from "../components/Link.astro";
 import MainLayout from "../layouts/MainLayout.astro"
-
+import { Image } from 'astro:assets'
 ---
 
 <MainLayout title="404">
-    <div class="text-5xl text-center p-2">
-        <h1 class="pb-4">Looks like you got lost.</h1>
-        <h2 class="text-2xl">404 Page not found.</h2>
+    <div class="text-5xl text-center pt-12">
+        <h1 class="pb-4">Oh noes!</h1>
+        <h2 class="text-2xl">We looked everywhere.</h2>
+        <Image class={"mx-auto pt-5"} src={"https://http.cat/404.jpg"} alt={"404 Image"} width={500} height={500}> 
         <p class="text-xl"><Link onclick="history.back()" href="#" text="Click me to go back."/></p>
     </div>
 </MainLayout>

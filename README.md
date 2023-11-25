@@ -5,7 +5,7 @@ My personal site. I use it to play around and experement with web dev. Mostly st
 
 ## The site
 
-https://lerndmina.dev
+https://ImAdam.io
 
 
 ## Run Locally
