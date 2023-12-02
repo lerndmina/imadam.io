@@ -1,13 +1,12 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
-
-// https://astro.build/config
-
-// https://astro.build/config
+import vercelServerless from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "server",
+  adapter: vercelServerless(),
   // experimental: {
   //   viewTransitions: true,
   // },

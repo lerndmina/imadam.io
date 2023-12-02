@@ -1,5 +1,6 @@
 ---
-import { getCollection, CollectionEntry } from "astro:content";
+export const prerender = true;
+import { getCollection, type CollectionEntry } from "astro:content";
 import PostCard from "../../../components/PostCard.astro";
 import { formatBlogPosts, slugify } from "../../../js/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
