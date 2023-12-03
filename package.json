@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "bunx astro dev",
-    "build": "bun run deploy",
+    "vercel": "bunx vercel dev",
+    "deploy": "vercel",
+    "build": "bunx astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
