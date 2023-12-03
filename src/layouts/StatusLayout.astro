@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import Link from '../components/Link.astro';
+export interface StatusProps {
+	status: {
+		code: string;
+		isError: boolean;
+		flavourTitle: string;
+		flavourText: string;
+		description: string;
+		shortDescription: string;
+	};
+}
+
+var { 
+	status, 
+} = Astro.props as StatusProps;
+
+const longTitle = `${status.isError ? `Error • `: ``}${status.code} ${status.shortDescription}`
+
+
+import '../styles/global.css'
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro'
+import Head from '../components/Head.astro'
+---
+
+<html lang="en">
+	<Head title={longTitle} description={status.description}/>
+	<body class="h-screen bg-notblack">
+		<Nav />
+
+		<slot><div class="text-5xl text-center pt-12">
+			<h1 class="pb-4">{status.flavourTitle}</h1>
+			<h2 class="text-2xl">{status.flavourText}</h2>
+			<Image class={"mx-auto pt-5"} src={`https://http.cat/${status.code}.jpg`} alt={`${status.code} Image`} width={512} height={512}> 
+			<p class="text-xl"><Link onclick="history.back()" href="#" text="Click me to go back."/></p>
+	</div></slot>
+
+		<Footer />
+		
+	</body>
+</html>
