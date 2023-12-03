@@ -1,9 +1,22 @@
 ---
+export const prerender = true;
 import PostCard from "../../components/PostCard.astro";
 import { formatBlogPosts } from "../../js/utils";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import Pagination from "../../components/Pagination.astro";
+
+interface UrlProps {
+  prev: string;
+  next: string;
+}
+
+interface PostProps {
+  url: UrlProps;
+  data: CollectionEntry<"blog">[];
+}
+
+type PageProps = PostProps
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection("blog");
@@ -20,6 +33,7 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
+const loadedPage = page as PageProps
 ---
 
 <MainLayout title="Blog">
@@ -27,7 +41,7 @@ const { page } = Astro.props;
   <br />
   <!-- <h1 class="mx-auto text-2xl text-center">Latest posts sorted first.</h1> -->
 
-  {page.data.map((post: CollectionEntry<"blog">) => <PostCard {post} />)}
+  {loadedPage.data.map((post: CollectionEntry<"blog">) => <PostCard {post} />)}
 
-  <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+  <Pagination prevUrl={loadedPage.url.prev} nextUrl={loadedPage.url.next} />
 </MainLayout>
