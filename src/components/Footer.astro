@@ -45,7 +45,7 @@ if (!isProd) {
       // Edit chrome-check element
       const userHasSeenKey = "userHasSeenChromeCheck";
       const userHasSeen = sessionStorage.getItem(userHasSeenKey);
-      const isLocalhost = window.location.hostname === "localhost"
+      const isLocalhost = window.location.hostname === "localhost" 
 
       if (userHasSeen && !isLocalhost) {
         return;
