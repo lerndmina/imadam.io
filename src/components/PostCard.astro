@@ -2,7 +2,7 @@
 import Link from "../components/Link.astro";
 import { slugify, formatDate } from "../js/utils";
 import { Image } from 'astro:assets'
-import { CollectionEntry } from "astro:content";
+import { type CollectionEntry } from "astro:content";
 const { post } = Astro.props;
 interface Props {
   post: CollectionEntry<"blog">;
