@@ -114,7 +114,7 @@ import { Prism } from '@astrojs/prism';
 
     // This is a hack to make sure the typewriter effect works on the first page load and after a page swap.
     // It's so fucking dumb, there's probably a better way but it's 5am and I'm tired.
-    document.addEventListener(
+    window.addEventListener(
       "astro:page-load",
       () => {
         typeWrite();
@@ -122,7 +122,11 @@ import { Prism } from '@astrojs/prism';
       { once: true }
     );
 
-    document.addEventListener("astro:after-swap", () => {
+    window.addEventListener("astro:after-swap", () => {
+      typeWrite();
+    });
+
+    document.addEventListener("DOMContentLoaded", (event) =>{
       typeWrite();
     });
 
