@@ -5,6 +5,7 @@ dist/
 
 # dependencies
 node_modules/
+node_modules
 
 # logs
 npm-debug.log*
@@ -24,3 +25,4 @@ pnpm-debug.log*
 .vscode/settings.json
 .vercel/*
 .vercel
+node_modules.nosync
