@@ -3,6 +3,8 @@ import mdx from "@astrojs/mdx";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
 
+import icon from "astro-icon";
+
 // https://astro.build/config
 export default defineConfig({
   output: "server",
@@ -10,14 +12,14 @@ export default defineConfig({
     imageService: true,
     devImageService: "sharp",
     speedInsights: {
-      enabled: true,
+      enabled: true
     },
     webAnalytics: {
-      enabled: true,
-    },
+      enabled: true
+    }
   }),
   // experimental: {
   //   viewTransitions: true,
   // },
-  integrations: [mdx(), tailwind()],
+  integrations: [mdx(), tailwind(), icon()]
 });
