@@ -1,0 +1,10 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Link from "../../components/Link.astro";
+
+const url = import.meta.env.DISCORD_OAUTH_URL;
+---
+
+<MainLayout title="Login">
+  <Link href={url} text="Login?" popup={true} />
+</MainLayout>

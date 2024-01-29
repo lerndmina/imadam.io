@@ -1,0 +1,104 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Link from "../../components/Link.astro";
+import { Image } from "astro:assets";
+
+
+const params = Astro.url.searchParams;
+const code = params.get('code');
+var userMsg = ""
+var TOKEN_TYPE = ""
+var TOKEN = ""
+var EXPIRES_IN_SECONDS = 0
+var REFRESH_TOKEN = ""
+var SCOPE = []
+var userJson = {}
+
+if (!code && !params) {
+    userMsg = "No code or params"
+}
+else if (!code) {
+  console.log(Astro.url)
+  userMsg = "No code"
+}
+else {
+  console.log(`code: ${code}`)
+  const ENDPOINT = `https://discord.com/api/v10`
+  const TOKEN_ENDPOINT = `${ENDPOINT}/oauth2/token`
+  const CLIENT_ID = import.meta.env.DISCORD_CLIENT_ID
+  const CLIENT_SECRET = import.meta.env.DISCORD_CLIENT_SECRET
+  const REDIRECT_URI = import.meta.env.DISCORD_REDIRECT_URI
+
+  const data = {
+    "client_id": CLIENT_ID,
+    "client_secret": CLIENT_SECRET,
+    "grant_type": "authorization_code",
+    "code": code,
+    "redirect_uri": REDIRECT_URI,
+  }
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  }
+  const result = await fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers,
+    body: new URLSearchParams(data),
+  })
+
+  const json = await result.json()
+  console.log(json)
+
+  if (!json.error) {
+    TOKEN_TYPE = json.token_type
+    TOKEN = json.access_token
+    EXPIRES_IN_SECONDS = json.expires_in
+    REFRESH_TOKEN = json.refresh_token
+    SCOPE = json.scope.split(" ")
+
+    const USER_ENDPOINT = `${ENDPOINT}/users/@me`
+
+    const userResult = await fetch(USER_ENDPOINT, {
+      method: 'GET',
+      headers: {
+        "Authorization": `${TOKEN_TYPE} ${TOKEN}`
+      }
+    })
+
+    userJson = await userResult.json()
+
+    userMsg = JSON.stringify(userJson)
+  } else {
+    userMsg = "Error, probably invalid code"
+  }
+}
+
+const vars = {
+  TOKEN_TYPE,
+  TOKEN,
+  EXPIRES_IN_SECONDS,
+  REFRESH_TOKEN,
+  SCOPE,
+  userJson,
+}
+
+---
+
+<MainLayout title="authtest">
+  <div class="text-center pt-5 text-2xl">
+  <code>{userMsg}</code>
+  <br />
+  <Link href="https://discord.com/api/oauth2/authorize?client_id=848254908624142338&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4321%2Fdev%2Fauthtest&scope=identify" text="Auth?" newtab={false}>
+  </div>
+  <img src="https://http.cat/200.jpg" id="avatar">
+</MainLayout>
+<script define:vars={{vars}}>import { defineStyleVars } from "astro/compiler-runtime";
+
+  if (!vars.userJson.id) return;
+  localStorage.setItem("userData", JSON.stringify(vars.userJson));
+  localStorage.setItem("token", vars.TOKEN);
+  localStorage.setItem("tokenType", vars.TOKEN_TYPE);
+  localStorage.setItem("expiresIn", vars.EXPIRES_IN_SECONDS);
+  localStorage.setItem("refreshToken", vars.REFRESH_TOKEN);
+  localStorage.setItem("scope", vars.SCOPE);
+
+</script>

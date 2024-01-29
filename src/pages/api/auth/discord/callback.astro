@@ -1,0 +1,50 @@
+---
+const params = Astro.url.searchParams;
+const code = params.get("code");
+
+if (!code) {
+  // return Astro.redirect("/400");
+  return new Response("400, no code provided", { status: 400 });
+}
+
+console.log(`Discord one time auth code: ${code}`);
+
+const ENDPOINT = `https://discord.com/api/v10`;
+const TOKEN_ENDPOINT = `${ENDPOINT}/oauth2/token`;
+const CLIENT_ID = import.meta.env.DISCORD_CLIENT_ID;
+const CLIENT_SECRET = import.meta.env.DISCORD_CLIENT_SECRET;
+const REDIRECT_URI = import.meta.env.DISCORD_REDIRECT_URI;
+
+const data = {
+  client_id: CLIENT_ID,
+  client_secret: CLIENT_SECRET,
+  grant_type: "authorization_code",
+  code: code,
+  redirect_uri: REDIRECT_URI,
+};
+const headers = {
+  "Content-Type": "application/x-www-form-urlencoded",
+};
+
+console.log("Requesting token from discord...");
+
+const res = await fetch(TOKEN_ENDPOINT, {
+  method: "POST",
+  headers: headers,
+  body: new URLSearchParams(data),
+});
+
+const json = await res.json();
+
+if (json.error || res.status !== 200) {
+  console.error(json);
+  // return Astro.redirect("/500");
+  return new Response("500, bad response from discord, probably an invalid code.", { status: 400 });
+}
+
+console.log(json);
+---
+
+<script>
+  close();
+</script>

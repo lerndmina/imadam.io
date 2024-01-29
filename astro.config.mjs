@@ -7,19 +7,22 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
+  image: {
+    remotePatterns: [{ protocol: "https" }],
+  },
   output: "server",
   adapter: vercel({
     imageService: true,
     devImageService: "sharp",
     speedInsights: {
-      enabled: true
+      enabled: true,
     },
     webAnalytics: {
-      enabled: true
-    }
+      enabled: true,
+    },
   }),
   // experimental: {
   //   viewTransitions: true,
   // },
-  integrations: [mdx(), tailwind(), icon()]
+  integrations: [mdx(), tailwind(), icon()],
 });
