@@ -6,8 +6,9 @@ interface Props {
   onclick?: string;
   newtab?: boolean;
   popup?: boolean;
+  popupTitle?: string;
 }
-var { text, href, extraclasses, onclick, newtab = true, popup = false } = Astro.props as Props;
+var { text, href, extraclasses, onclick, newtab = true, popup = false, popupTitle = "" } = Astro.props as Props;
 
 const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${extraclasses ? extraclasses : ""}`;
 
@@ -25,9 +26,20 @@ if (found && found[3] != homeUrl) {
 }
 
 if (popup) {
+  if (!popupTitle) {
+    popupTitle = text;
+  }
   target = "_blank";
-  onclick = 'window.open(this.href, "mywin", "width=500,height=500,toolbar=1,resizable=0"); return false;';
+  onclick = `openPopup(${href}, ${popupTitle}, ${500}, ${800}); return false;`;
 }
+
+import { popupCenter } from "../utils/utils";
 ---
 
 <a onclick={onclick} target={target} class={classes} href={href}>{text}</a>
+<script>
+  import { popupCenter } from "../utils/utils";
+  function openPopup(url, title, w, h) {
+    popupCenter({ url, title, w, h });
+  }
+</script>

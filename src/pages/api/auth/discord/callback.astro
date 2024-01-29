@@ -45,6 +45,10 @@ if (json.error || res.status !== 200) {
 console.log(json);
 ---
 
+Login successful! Redirecting... If yoi are not redirected, click <a href="/">here</a>.
+
 <script>
-  close();
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 1000);
 </script>
