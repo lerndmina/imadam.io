@@ -2,7 +2,7 @@
 export const prerender = true;
 import { getCollection, type CollectionEntry } from "astro:content";
 import PostCard from "../../../components/PostCard.astro";
-import { formatBlogPosts, slugify } from "../../../js/utils";
+import { formatBlogPosts, slugify } from "../../../utils/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
 
 export async function getStaticPaths() {
@@ -12,13 +12,9 @@ export async function getStaticPaths() {
     filterOutFuturePosts: true,
     sortByDate: true,
   });
-  const allAuthors = [
-    ...new Set(formattedPosts.map((post) => post.data.author).flat()),
-  ];
+  const allAuthors = [...new Set(formattedPosts.map((post) => post.data.author).flat())];
   return allAuthors.map((author) => {
-    const authorPosts = formattedPosts.filter(
-      (post) => post.data.author === author
-    );
+    const authorPosts = formattedPosts.filter((post) => post.data.author === author);
     return {
       params: { author: slugify(author) },
       props: {

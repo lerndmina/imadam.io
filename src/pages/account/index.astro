@@ -1,23 +1,51 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
+import Link from "../../components/Link.astro";
 ---
 
 <MainLayout title="Your Account">
+  <h1>Hello <span id="username" class="font-semibold">USERNAME</span></h1>
+  <p>Here is your account information</p>
+  <Link href="/account/login" text="Login / Logout" />
+  <br /><br />
   <ul id="user-list"></ul>
+  <script>
+    import { checkUser } from "../../utils/utils";
+    document.addEventListener("DOMContentLoaded", async (event) => {
+      var userStr = localStorage.getItem("user");
+      if (!userStr) {
+        window.location.href = "/account/login";
+        return;
+      }
+      const userObj = JSON.parse(userStr);
+      console.log(userObj);
+
+      var username = document.getElementById("username");
+      if (!username) return;
+      username.innerHTML = userObj.global_name || userObj.username;
+      username.classList.add("text-gradient-anim", "grad");
+
+      var userList = document.getElementById("user-list");
+      if (!userList) return;
+      for (var key in userObj) {
+        var li = document.createElement("li");
+        li.innerHTML = key + ": " + userObj[key];
+        userList.appendChild(li);
+        console.log(key, userObj[key]);
+      }
+      var li = document.createElement("li");
+      li.innerHTML = "Is Authenticated Right Now: " + (await isAuthenticated());
+      userList.appendChild(li);
+
+      async function isAuthenticated() {
+        console.log("Cheking if user is authenticated");
+        var user = await checkUser(userObj.token);
+        console.log(user);
+        if (user.id === userObj.id) {
+          return true;
+        }
+        return false;
+      }
+    });
+  </script>
 </MainLayout>
-<script is:inline>
-  var userStr = localStorage.getItem("user");
-  console.log("here");
-  if (!userStr) {
-    window.location.href = "./login";
-    return;
-  }
-  const userObj = JSON.parse(userStr);
-  console.log(userObj);
-  var userList = document.getElementById("user-list");
-  for (var key in userObj) {
-    var li = document.createElement("li");
-    li.innerHTML = key + ": " + userObj[key];
-    userList.appendChild(li);
-  }
-</script>

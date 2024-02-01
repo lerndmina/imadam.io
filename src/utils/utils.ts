@@ -44,17 +44,6 @@ export function getCopyrightYear() {
   return new Date().getFullYear().toString();
 }
 
-export const is = {
-  ff: window.globalStorage,
-  ie: document.all && !window.opera,
-  ie6: !window.XMLHttpRequest,
-  ie7: document.all && window.XMLHttpRequest && !XDomainRequest && !window.opera,
-  ie8: document.documentMode == 8,
-  opera: Boolean(window.opera),
-  chrome: Boolean(window.chrome),
-  safari: window.getComputedStyle && !window.globalStorage && !window.opera,
-};
-
 export const popupCenter = ({ url, title, w, h }) => {
   // Fixes dual-screen position                             Most browsers      Firefox
   const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -77,7 +66,7 @@ export const popupCenter = ({ url, title, w, h }) => {
     left=${left}
     `
   );
-
+  // @ts-ignore
   if (window.focus) newWindow.focus();
 };
 export function urlParser(url) {
@@ -93,4 +82,20 @@ export function urlParser(url) {
       return null;
     }
   }
+}
+
+export async function checkUser(token: string, endpoint: string = "https://discord.com/api/v10") {
+  const USER_ENDPOINT = `${endpoint}/users/@me`;
+
+  const userFetch = await fetch(USER_ENDPOINT, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const userJson = await userFetch.json();
+
+  console.log("User info received from discord:");
+  return userJson;
 }

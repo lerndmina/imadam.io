@@ -1,6 +1,7 @@
 ---
 import Link from "../../../../components/Link.astro";
 import MainLayout from "../../../../layouts/MainLayout.astro";
+import { checkUser } from "../../../../utils/utils";
 
 const params = Astro.url.searchParams;
 const code = params.get("code");
@@ -12,7 +13,7 @@ if (!code) {
 
 console.log(`Discord one time auth code: ${code}`);
 
-const ENDPOINT = `https://discord.com/api/v10`;
+const ENDPOINT = import.meta.env.DISCORD_API_ENDPOINT;
 const TOKEN_ENDPOINT = `${ENDPOINT}/oauth2/token`;
 const CLIENT_ID = import.meta.env.DISCORD_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.DISCORD_CLIENT_SECRET;
@@ -48,31 +49,13 @@ if (json.error || res.status !== 200 || !json.access_token) {
 console.log("Token received from discord:");
 console.log(json);
 
-const USER_ENDPOINT = `${ENDPOINT}/users/@me`;
-
-const userFetch = await fetch(USER_ENDPOINT, {
-  method: "GET",
-  headers: {
-    Authorization: `Bearer ${json.access_token}`,
-  },
-});
-
-const userJson = await userFetch.json();
-
-console.log("User info received from discord:");
+const userJson = await checkUser(json.access_token, ENDPOINT);
 console.log(userJson);
 
 const user = {
   id: userJson.id,
   username: userJson.username,
-  avatar: userJson.avatar,
-  discriminator: userJson.discriminator,
-  premium_type: userJson.premium_type,
-  global_name: userJson.global_name,
-  mfa_enabled: userJson.mfa_enabled,
-  locale: userJson.locale,
   email: userJson.email,
-  verified: userJson.verified,
   token: json.access_token,
   refresh_token: json.refresh_token,
   expires_in: json.expires_in,

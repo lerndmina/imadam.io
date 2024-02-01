@@ -27,10 +27,12 @@ console.log(url);
 
 const linkId = "loginLink";
 const logOutId = "logOutText";
+const logOutLinkId = "logOutLink";
 
 const clientData = {
   linkId,
   logOutId,
+  logOutLinkId,
   redirect,
 };
 ---
@@ -39,7 +41,7 @@ const clientData = {
   <div class="text-center">
     <Link href={url} text="Login with Discord" newtab={false} id={linkId} />
     <p class="hidden" id={logOutId}>
-      You are already logged in, would you like to <Link href="" text="Log Out" newtab={false} extraclasses="font-bold">?</Link> or <Link
+      You are already logged in, would you like to <Link href="" text="Log Out" newtab={false} extraclasses="font-bold" id={logOutLinkId}>?</Link> or <Link
         href="/account"
         text="Go to your account?"
         extraclasses="font-bold"
@@ -65,9 +67,9 @@ const clientData = {
         console.log(`Redirecting after login to ${localStorage.getItem("redirect") || "home or env var"}`);
       }
 
-      const logOutText = document.getElementById(logOutId);
-      if (logOutText === null) return console.log("Log out text element not found");
-      logOutText.addEventListener("click", () => {
+      const logOutLink = document.getElementById(logOutLinkId);
+      if (logOutLink === null) return console.log("Log out text element not found");
+      logOutLink.addEventListener("click", () => {
         localStorage.clear();
         window.location.reload();
       });
