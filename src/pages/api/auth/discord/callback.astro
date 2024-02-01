@@ -1,4 +1,7 @@
 ---
+import Link from "../../../../components/Link.astro";
+import MainLayout from "../../../../layouts/MainLayout.astro";
+
 const params = Astro.url.searchParams;
 const code = params.get("code");
 
@@ -36,19 +39,72 @@ const res = await fetch(TOKEN_ENDPOINT, {
 
 const json = await res.json();
 
-if (json.error || res.status !== 200) {
+if (json.error || res.status !== 200 || !json.access_token) {
   console.error(json);
   // return Astro.redirect("/500");
   return new Response("500, bad response from discord, probably an invalid code.", { status: 400 });
 }
 
+console.log("Token received from discord:");
 console.log(json);
+
+const USER_ENDPOINT = `${ENDPOINT}/users/@me`;
+
+const userFetch = await fetch(USER_ENDPOINT, {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${json.access_token}`,
+  },
+});
+
+const userJson = await userFetch.json();
+
+console.log("User info received from discord:");
+console.log(userJson);
+
+const user = {
+  id: userJson.id,
+  username: userJson.username,
+  avatar: userJson.avatar,
+  discriminator: userJson.discriminator,
+  premium_type: userJson.premium_type,
+  global_name: userJson.global_name,
+  mfa_enabled: userJson.mfa_enabled,
+  locale: userJson.locale,
+  email: userJson.email,
+  verified: userJson.verified,
+  token: json.access_token,
+  refresh_token: json.refresh_token,
+  expires_in: json.expires_in,
+  token_type: json.token_type,
+  token_scope: json.scope,
+};
+
+const bundle = {
+  user: user,
+}; // This is so fucked. Instead of naming the variable it deconstructs the object.
 ---
 
-Login successful! Redirecting... If yoi are not redirected, click <a href="/">here</a>.
+<MainLayout title="Discord-Callback">
+  <div class="text-center">
+    <Link href="/" text="Login successful! Redirecting... If you are not redirected, click here" />
+    <ul>
+      {
+        Object.entries(user).map(([key, value]) => (
+          <li>
+            {key}: {value}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</MainLayout>
+<script define:vars={bundle}>
+  console.log("");
+  console.log(user);
 
-<script>
-  setTimeout(() => {
-    window.location.href = "/";
-  }, 1000);
+  localStorage.setItem("user", JSON.stringify(user));
+
+  console.log("Logging from localstorage for testing");
+  console.log(JSON.parse(localStorage.getItem("user")));
 </script>

@@ -1,13 +1,42 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import Link from "../../components/Link.astro";
-
 const url = import.meta.env.DISCORD_OAUTH_URL;
-import { Icon } from "astro-icon/components";
+
+const linkId = "loginLink";
+const logOutId = "logOutText";
+
+const clientData = {
+  linkId,
+  logOutId,
+};
 ---
 
 <MainLayout title="Login">
   <div class="text-center">
-    <Icon name="ic:baseline-discord" size={50} />
+    <Link href={url} text="Login with Discord" newtab={false} id={linkId} />
+    <p class="hidden" id={logOutId}>You are already logged in, would you like to <Link href="#" text="Log Out" onclick="logOut()">?</Link></p>
   </div>
+  <script define:vars={clientData}>
+    const userString = localStorage.getItem("user");
+    console.log(userString);
+    if (userString) {
+      const user = JSON.parse(userString);
+      if (user) {
+        console.log("User already logged in");
+        console.log(user);
+        const link = document.getElementById(linkId);
+        if (link === null) return console.log("Link element not found");
+        link.classList.add("hidden");
+        const logOutText = document.getElementById(logOutId);
+        if (logOutText === null) return console.log("Log out text element not found");
+        logOutText.classList.remove("hidden");
+      }
+    }
+
+    function logOut() {
+      localStorage.removeItem("user");
+      window.location.reload();
+    }
+  </script>
 </MainLayout>
