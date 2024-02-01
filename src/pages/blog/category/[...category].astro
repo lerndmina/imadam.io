@@ -2,7 +2,7 @@
 export const prerender = true;
 import { getCollection, type CollectionEntry } from "astro:content";
 import PostCard from "../../../components/PostCard.astro";
-import { formatBlogPosts, slugify } from "../../../js/utils";
+import { formatBlogPosts, slugify } from "../../../utils/utils";
 import MainLayout from "../../../layouts/MainLayout.astro";
 
 export async function getStaticPaths() {
@@ -33,8 +33,6 @@ const { category } = Astro.params;
 const { posts, categoryName } = Astro.props;
 
 const catPosts = posts.filter((post) => slugify(post.data.category) === category);
-
-
 ---
 
 <MainLayout title={`Posts about ${categoryName}`}>

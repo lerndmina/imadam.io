@@ -1,12 +1,12 @@
 ---
 export const prerender = true;
 import { getCollection, type CollectionEntry } from "astro:content";
-import { Image } from 'astro:assets'
+import { Image } from "astro:assets";
 // component import
 import MainLayout from "../../layouts/MainLayout.astro";
 import Link from "../../components/Link.astro";
 // util imports
-import { formatBlogPosts, slugify, formatDate } from "../../js/utils";
+import { formatBlogPosts, slugify, formatDate } from "../../utils/utils";
 export async function getStaticPaths() {
   const allPosts = await getCollection("blog");
   const formattedPosts = formatBlogPosts(allPosts);
@@ -43,7 +43,7 @@ const { Content } = await post.render();
       </div>
     </header>
     <div class="flex justify-center rounded-md overflow-hidden mx-auto p-10 pt-20">
-      <Image class="drop-shadow-lg" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"}/>
+      <Image class="drop-shadow-lg" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"} />
     </div>
     <div class="flex justify-center sm:px-8 px-16">
       <div class="content prose prose-invert">
