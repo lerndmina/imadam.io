@@ -1,0 +1,23 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Your Account">
+  <ul id="user-list"></ul>
+</MainLayout>
+<script is:inline>
+  var userStr = localStorage.getItem("user");
+  console.log("here");
+  if (!userStr) {
+    window.location.href = "./login";
+    return;
+  }
+  const userObj = JSON.parse(userStr);
+  console.log(userObj);
+  var userList = document.getElementById("user-list");
+  for (var key in userObj) {
+    var li = document.createElement("li");
+    li.innerHTML = key + ": " + userObj[key];
+    userList.appendChild(li);
+  }
+</script>

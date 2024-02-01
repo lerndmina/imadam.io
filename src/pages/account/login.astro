@@ -1,7 +1,29 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import Link from "../../components/Link.astro";
-const url = import.meta.env.DISCORD_OAUTH_URL;
+
+const params = Astro.url.searchParams;
+var redirect = params.get("redirect");
+if (redirect?.includes(".") && !redirect.startsWith("https://") && !redirect.startsWith("http://") && !redirect.startsWith("/")) {
+  redirect = `https://${redirect}`;
+}
+
+const discordBaseUrl = "https://discord.com/api/oauth2/authorize";
+const clientId = import.meta.env.DISCORD_CLIENT_ID;
+const parts = Astro.url.toString().split("/");
+const baseUrl = [parts.slice(0, 3).join("/"), parts.slice(3).join("/")];
+const redirectUri = encodeURIComponent(import.meta.env.DISCORD_REDIRECT_URI) || encodeURIComponent(`${baseUrl}${import.meta.env.REDIRECT_AFTER_LOGIN_CALLBACK}`);
+
+const scopes = ["identify"];
+var scopeParam;
+if (scopes.length > 1) {
+  scopeParam = scopes.join("%20");
+} else {
+  scopeParam = scopes[0];
+}
+const url = `${discordBaseUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopeParam}`;
+
+console.log(url);
 
 const linkId = "loginLink";
 const logOutId = "logOutText";
@@ -9,34 +31,46 @@ const logOutId = "logOutText";
 const clientData = {
   linkId,
   logOutId,
+  redirect,
 };
 ---
 
 <MainLayout title="Login">
   <div class="text-center">
     <Link href={url} text="Login with Discord" newtab={false} id={linkId} />
-    <p class="hidden" id={logOutId}>You are already logged in, would you like to <Link href="#" text="Log Out" onclick="logOut()">?</Link></p>
-  </div>
-  <script define:vars={clientData}>
-    const userString = localStorage.getItem("user");
-    console.log(userString);
-    if (userString) {
-      const user = JSON.parse(userString);
-      if (user) {
-        console.log("User already logged in");
-        console.log(user);
-        const link = document.getElementById(linkId);
-        if (link === null) return console.log("Link element not found");
-        link.classList.add("hidden");
-        const logOutText = document.getElementById(logOutId);
-        if (logOutText === null) return console.log("Log out text element not found");
-        logOutText.classList.remove("hidden");
+    <p class="hidden" id={logOutId}>
+      You are already logged in, would you like to <Link href="" text="Log Out" newtab={false} extraclasses="font-bold">?</Link> or <Link
+        href="/account"
+        text="Go to your account?"
+        extraclasses="font-bold"
+      />
+    </p>
+    <script define:vars={clientData}>
+      const userString = localStorage.getItem("user");
+      if (userString) {
+        const user = JSON.parse(userString);
+        if (user) {
+          console.log("User already logged in");
+          const link = document.getElementById(linkId);
+          if (link === null) return console.log("Link element not found");
+          link.classList.add("hidden");
+          const logOutText = document.getElementById(logOutId);
+          if (logOutText === null) return console.log("Log out text element not found");
+          logOutText.classList.remove("hidden");
+        }
+      } else {
+        // Make sure the callback can redirect us correctly.
+        if (redirect) localStorage.setItem("redirect", decodeURIComponent(redirect));
+        else localStorage.removeItem("redirect");
+        console.log(`Redirecting after login to ${localStorage.getItem("redirect") || "home or env var"}`);
       }
-    }
 
-    function logOut() {
-      localStorage.removeItem("user");
-      window.location.reload();
-    }
-  </script>
+      const logOutText = document.getElementById(logOutId);
+      if (logOutText === null) return console.log("Log out text element not found");
+      logOutText.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.reload();
+      });
+    </script>
+  </div>
 </MainLayout>

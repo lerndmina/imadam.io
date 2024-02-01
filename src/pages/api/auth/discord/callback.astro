@@ -80,14 +80,16 @@ const user = {
   token_scope: json.scope,
 };
 
-const bundle = {
+const clientData = {
   user: user,
-}; // This is so fucked. Instead of naming the variable it deconstructs the object.
+  envRedirect: import.meta.env.REDIRECT_AFTER_LOGIN_CALLBACK,
+  redirectLinkId: "redirectLink",
+};
 ---
 
 <MainLayout title="Discord-Callback">
   <div class="text-center">
-    <Link href="/" text="Login successful! Redirecting... If you are not redirected, click here" />
+    <Link href="/" text="Login successful! Redirecting... If you are not redirected, click here" id={clientData.redirectLinkId} />
     <ul>
       {
         Object.entries(user).map(([key, value]) => (
@@ -99,12 +101,25 @@ const bundle = {
     </ul>
   </div>
 </MainLayout>
-<script define:vars={bundle}>
-  console.log("");
-  console.log(user);
-
+<script define:vars={clientData}>
   localStorage.setItem("user", JSON.stringify(user));
-
   console.log("Logging from localstorage for testing");
   console.log(JSON.parse(localStorage.getItem("user")));
+
+  const redirectLink = document.getElementById(redirectLinkId);
+  if (!redirectLink) {
+    console.error("Redirect link not found on the page");
+    return;
+  }
+
+  console.log("Redirect link found on the page");
+
+  const redirectUrl = localStorage.getItem("redirect") || envRedirect || "/";
+  localStorage.removeItem("redirect");
+  console.log(`Redirecting to ${redirectUrl}`);
+  redirectLink.setAttribute("href", redirectUrl);
+
+  setTimeout(() => {
+    redirectLink.click();
+  }, 1000);
 </script>

@@ -80,3 +80,17 @@ export const popupCenter = ({ url, title, w, h }) => {
 
   if (window.focus) newWindow.focus();
 };
+export function urlParser(url) {
+  if (typeof url !== "string") return null;
+
+  try {
+    new URL(url);
+    return url;
+  } catch (e) {
+    try {
+      return new URL("https://" + url).toString();
+    } catch (e) {
+      return null;
+    }
+  }
+}
