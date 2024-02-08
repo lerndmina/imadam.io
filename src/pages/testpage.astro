@@ -1,0 +1,16 @@
+---
+import Button from "../components/Button.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Testpage" description="A standard testpage">
+  <div class="text-center">
+    <Button addConfetti={true}>Woo</Button>
+    <Button>Hello There noWoo</Button>
+  </div>
+  <script>
+    $(function () {
+      console.log("testpage loaded with jQuery!");
+    });
+  </script>
+</MainLayout>
