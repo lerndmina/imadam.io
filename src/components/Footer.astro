@@ -13,7 +13,7 @@ const isProd = import.meta.env.ISPROD;
 var indevMsg = ``;
 
 if (!isProd) {
-  indevMsg = `<p class="grad font-bold">This is a development build, expect bugs and issues. <a href="/account/login">login?</a></p>`;
+  indevMsg = `<p class="grad font-bold">This is a development build, expect bugs and issues. <br /><a href="" id="globalLoginButton">Loading...</a></p>`;
 }
 ---
 
@@ -88,4 +88,19 @@ if (!isProd) {
 
 <script>
   document.querySelector("#copyright")!.textContent = new Date().getFullYear().toString();
+</script>
+
+<script>
+  import { isLoggedIn } from "../utils/utils";
+  $(async function () {
+    const loginbutton = $(`#globalLoginButton`).first();
+    if (!loginbutton) return;
+    if (await isLoggedIn()) {
+      loginbutton.text("Your account");
+      loginbutton.attr("href", "/account");
+    } else {
+      loginbutton.text("Login or Register");
+      loginbutton.attr("href", "/account/login");
+    }
+  });
 </script>

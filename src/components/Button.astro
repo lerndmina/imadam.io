@@ -23,12 +23,14 @@ const extraClasses = theRest.class || "";
   $(function () {
     $('button[id^="true-"]').on("click", function (event) {
       confetti({
-        spread: 140, // Increase spread to make confetti spread out more
+        spread: 120, // Increase spread to make confetti spread out more
         angle: 90,
         gravity: 2, // Increase gravity to make confetti fall faster
         colors: ["#e00b8b", "#fa4b00"],
         origin: { x: event.pageX / window.innerWidth, y: event.pageY / window.innerHeight },
         startVelocity: 20,
+        particleCount: 100,
+        ticks: 100,
       });
     });
   });

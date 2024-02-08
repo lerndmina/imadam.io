@@ -84,7 +84,7 @@ export function urlParser(url) {
   }
 }
 
-export async function checkUser(token: string, endpoint: string = "https://discord.com/api/v10") {
+export async function checkUser(id: string, token: string, endpoint: string = "https://discord.com/api/v10") {
   const USER_ENDPOINT = `${endpoint}/users/@me`;
 
   const userFetch = await fetch(USER_ENDPOINT, {
@@ -94,8 +94,26 @@ export async function checkUser(token: string, endpoint: string = "https://disco
     },
   });
 
+  if (userFetch.status !== 200) {
+    console.log("Error fetching user info from discord: " + userFetch.status + " " + userFetch.statusText);
+    return false;
+  }
   const userJson = await userFetch.json();
 
-  console.log("User info received from discord:");
   return userJson;
+}
+
+export async function isLoggedIn() {
+  var userData = JSON.parse(localStorage.getItem("user") || "null");
+  console.log("User:", userData ? `"${userData.global_name}" is Authenticated with their saved token` : "Not logged in");
+  if (userData) {
+    const user = await checkUser(userData.id, userData.token);
+    if (!user) {
+      localStorage.removeItem("user");
+      return false;
+    }
+    return user;
+  } else {
+    return false;
+  }
 }
