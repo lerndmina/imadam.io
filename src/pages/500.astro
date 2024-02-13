@@ -1,0 +1,16 @@
+---
+import Link from "../components/Link.astro";
+import StatusLayout, { type StatusProps } from "../layouts/StatusLayout.astro";
+import { Image } from "astro:assets";
+
+const status = {
+  code: "500",
+  isError: true,
+  description: "Internal Server Error",
+  shortDescription: "Soilent Green is people!",
+  flavourTitle: "The server is on fire!",
+  flavourText: "Something went wrong internally. It's not your fault. We're working on it.",
+};
+---
+
+<StatusLayout status={status} />

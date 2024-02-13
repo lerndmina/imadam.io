@@ -1,7 +1,7 @@
 ---
 import Link from "../components/Link.astro";
-import { slugify, formatDate } from "../js/utils";
-import { Image } from 'astro:assets'
+import { slugify, formatDate } from "../utils/utils";
+import { Image } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
 const { post } = Astro.props;
 interface Props {
@@ -19,7 +19,14 @@ const url = `/blog/${post.slug}/`;
   <!--Card 1-->
   <div class="py-5 lg:max-w-full lg:flex bg-darkbg rounded-md">
     <a href={url}>
-      <Image class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"}/>
+      <Image
+        class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        src={image}
+        alt={imageTitle ? imageTitle : description}
+        title={imageTitle ? imageTitle : description}
+        transition:name={"img-" + post.slug}
+        format={"avif"}
+      />
     </a>
     <div class="pr-4 flex flex-col lg:max-w-md lg:mx-auto text-center lg:justify-between justify-center">
       <div class="mb-8">
@@ -35,8 +42,10 @@ const url = `/blog/${post.slug}/`;
             <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
           </p>
           <p transition:name={"author-" + post.slug}>
-            <Link href={`/blog/author/${slugify(author)}/`} text={author} /><span> •
-              {formatDate(date)}</span>
+            <Link href={`/blog/author/${slugify(author)}/`} text={author} /><span>
+              •
+              {formatDate(date)}</span
+            >
           </p>
         </div>
       </div>

@@ -1,0 +1,100 @@
+---
+import Link from "../../../../components/Link.astro";
+import MainLayout from "../../../../layouts/MainLayout.astro";
+import { checkUser } from "../../../../utils/utils";
+
+const params = Astro.url.searchParams;
+const code = params.get("code");
+
+if (!code) {
+  // return Astro.redirect("/400");
+  return new Response("400, no code provided", { status: 400 });
+}
+
+console.log(`Discord one time auth code: ${code}`);
+
+const ENDPOINT = import.meta.env.DISCORD_API_ENDPOINT;
+const TOKEN_ENDPOINT = `${ENDPOINT}/oauth2/token`;
+const CLIENT_ID = import.meta.env.DISCORD_CLIENT_ID;
+const CLIENT_SECRET = import.meta.env.DISCORD_CLIENT_SECRET;
+const REDIRECT_URI = import.meta.env.DISCORD_REDIRECT_URI;
+
+const data = {
+  client_id: CLIENT_ID,
+  client_secret: CLIENT_SECRET,
+  grant_type: "authorization_code",
+  code: code,
+  redirect_uri: REDIRECT_URI,
+};
+const headers = {
+  "Content-Type": "application/x-www-form-urlencoded",
+};
+
+console.log("Requesting token from discord...");
+
+const res = await fetch(TOKEN_ENDPOINT, {
+  method: "POST",
+  headers: headers,
+  body: new URLSearchParams(data),
+});
+
+const json = await res.json();
+
+if (json.error || res.status !== 200 || !json.access_token) {
+  console.error(json);
+  // return Astro.redirect("/500");
+  return new Response("500, bad response from discord, probably an invalid code.", { status: 400 });
+}
+
+console.log("Token received from discord:");
+console.log(json);
+
+const userJson = await checkUser(json.id, json.access_token, ENDPOINT);
+console.log(userJson);
+
+const user = {
+  id: userJson.id,
+  username: userJson.username,
+  global_name: userJson.global_name,
+  email: userJson.email,
+  token: json.access_token,
+  refresh_token: json.refresh_token,
+  expires_in: json.expires_in,
+  token_type: json.token_type,
+  token_scope: json.scope,
+};
+
+const clientData = {
+  user: user,
+  envRedirect: import.meta.env.REDIRECT_AFTER_LOGIN_CALLBACK,
+  redirectLinkId: "redirectLink",
+};
+---
+
+<MainLayout title="Discord-Callback">
+  <div class="text-center">
+    <Link href="/" text="Login successful! Redirecting... If you are not redirected, click here" id={clientData.redirectLinkId} />
+  </div>
+</MainLayout>
+<script define:vars={clientData}>
+  localStorage.setItem("user", JSON.stringify(user));
+  console.log("Logging from localstorage for testing");
+  console.log(JSON.parse(localStorage.getItem("user")));
+
+  const redirectLink = document.getElementById(redirectLinkId);
+  if (!redirectLink) {
+    console.error("Redirect link not found on the page");
+    return;
+  }
+
+  console.log("Redirect link found on the page");
+
+  const redirectUrl = localStorage.getItem("redirect") || envRedirect || "/";
+  localStorage.removeItem("redirect");
+  console.log(`Redirecting to ${redirectUrl}`);
+  redirectLink.setAttribute("href", redirectUrl);
+
+  setTimeout(() => {
+    redirectLink.click();
+  }, 1000);
+</script>

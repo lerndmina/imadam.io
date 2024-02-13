@@ -4,12 +4,12 @@ interface Props {
   href: string;
   extraclasses?: string;
   onclick?: string;
+  newtab?: boolean;
+  id?: string;
 }
-const { text, href, extraclasses, onclick } = Astro.props as Props;
+var { text, href, extraclasses, onclick, newtab = true, id } = Astro.props as Props;
 
-const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${
-  extraclasses ? extraclasses : ""
-}`;
+const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${extraclasses ? extraclasses : ""}`;
 
 // If domain exists and is not homeurl then open in new tab.
 const homeUrl = "lerndmina.dev";
@@ -17,9 +17,12 @@ var target;
 
 const regex = "^(https?://)?(www.)?([^/]+)";
 const found = href.match(regex);
+
 if (found && found[3] != homeUrl) {
-  target = 'target="_blank"';
+  if (newtab) {
+    target = "_blank";
+  }
 }
 ---
 
-<a onclick={onclick} {target} class={classes} href={href}>{text}</a>
+<a onclick={onclick} target={target} class={classes} href={href} id={id}>{text}</a>

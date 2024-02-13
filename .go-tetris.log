@@ -1,0 +1,13 @@
+2024/01/29 13:33:05 engine.go:57: Engine Start start
+2024/01/29 13:33:05 engine.go:29: Engine Run start
+2024/01/29 13:33:05 engine.go:123: Engine NewGame start
+2024/01/29 13:33:05 engine.go:143: Engine NewGame end
+2024/01/29 13:33:22 engine.go:226: Engine GameOver start
+2024/01/29 13:33:22 view.go:271: View ShowGameOverAnimation start
+2024/01/29 13:33:22 view.go:283: View ShowGameOverAnimation case 1
+2024/01/29 13:33:23 view.go:338: View ShowGameOverAnimation end
+2024/01/29 13:33:23 engine.go:245: Engine GameOver end
+2024/01/29 13:33:26 engine.go:86: Engine Start end
+2024/01/29 13:33:26 view.go:31: View Stop start
+2024/01/29 13:33:26 engine.go:52: Engine Run end
+2024/01/29 13:33:26 view.go:35: View Stop end

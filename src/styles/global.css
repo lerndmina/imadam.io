@@ -15,10 +15,6 @@ html{
     background-color: rgb(45, 46, 46)
 }
 
-.btn{
-    @apply font-bold py-2 px-4 rounded text-notwhite;
-}
-
 .nav-link-selected{
     /* Do something here maybe? */
 }
@@ -77,27 +73,41 @@ html{
 /* ! Amimated background? */
 
 
-
-@keyframes background-pan {
-    from {
-      background-position: +100% center;
-    }
-    
-    to {
-      background-position: -100% center;
-    }
-  }
-
 .text-gradient-anim{
-  animation: background-pan 1s linear infinite;
   background: linear-gradient(
-    to right,
-    rgba(224, 11, 139, 1),
-    rgba(250, 75, 0, 1),
-    rgba(224, 11, 139, 1),
+    270deg,
+  rgba(224, 11, 139, 1),
+  rgba(250, 75, 0, 1),
+  rgba(224, 11, 139, 1),
+  rgba(250, 75, 0, 1),
+  rgba(224, 11, 139, 1)
   );
-  background-size: 300%;
+  background-size: 200% 100%;
+  animation: gradient 1.5s linear infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   white-space: nowrap;
 }
+
+.button-gradient-anim:hover {
+    background: linear-gradient(
+      270deg,
+      rgba(224, 11, 139, 1),
+      rgba(250, 75, 0, 1),
+      rgba(224, 11, 139, 1),
+      rgba(250, 75, 0, 1),
+      rgba(224, 11, 139, 1)
+    );
+    background-size: 200% 100%;
+    animation: gradient 3s linear infinite;
+    color: white;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 200% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

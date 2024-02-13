@@ -8,81 +8,99 @@ var yyyy = date.getFullYear();
 
 var today = yyyy + "/" + mm + "/" + dd;
 
-import dotenv from 'dotenv'; 
-dotenv.config();
-
 const isProd = import.meta.env.ISPROD;
 
-var indevMsg = ``
+var indevMsg = ``;
 
 if (!isProd) {
-  indevMsg = `<p class="grad font-bold">This is a development build, expect bugs and issues.</p>`
+  indevMsg = `<p class="grad font-bold">This is a development build, expect bugs and issues. <br /><a href="" id="globalLoginButton">Loading...</a></p>`;
 }
 ---
 
 <footer class="sticky top-[100vh] py-10 text-center min-w-full text-md md:text-lg">
   <Fragment set:html={indevMsg} />
   <p>
-    <noscript class="font-bold text-xl">Javascript is disabled, you may face errors or strangeness. 
-      <a href="https://www.enable-javascript.com"
-        class="font-bold grad">Enable it here.</a></noscript>
+    <noscript class="font-bold text-xl"
+      >Javascript is disabled, you may face errors or strangeness.
+      <a href="https://www.enable-javascript.com" class="font-bold grad">Enable it here.</a></noscript
+    >
   </p>
   <p class="font-semibold">
     <Link href="https://imadam.io" text="ImAdam.io" /> | Copyright &copy; <span id="copyright"></span> | All rights reserved
   </p>
   <p class="text-xs">
-    Built using <Link href="https://astro.build" text="AstroJS"/> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS"/> | <Link href="https://status.imadam.io" text="Check out my status page"/> | Last updated {today}
+    Built using <Link href="https://astro.build" text="AstroJS" /> 🚀 & <Link href="https://tailwindcss.com" text="TailwindCSS" /> | <Link
+      href="https://status.imadam.io"
+      text="Check out my status page"
+    /> | Last updated {today}
   </p>
-  <p id="chrome-check" class="text-xs hidden max-w-sm text-center mx-auto"><br /> This site is best viewed in a chromium browser due to my use of <Link href="https://caniuse.com/mdn-api_viewtransition" text="ViewTransitions" extraclasses="font-bold"/> for seamless page navigation. During the next page refresh I will hide this message until the browser is closed. :)</p>
+  <p id="chrome-check" class="text-xs hidden max-w-sm text-center mx-auto">
+    <br /> This site is best viewed in a chromium browser due to my use of <Link href="https://caniuse.com/mdn-api_viewtransition" text="ViewTransitions" extraclasses="font-bold" /> for seamless page navigation.
+    During the next page refresh I will hide this message until the browser is closed. :)
+  </p>
 </footer>
 
-
 <script>
-  import { is } from "../utils/utils";
+  import { is } from "../utils/is";
   function isChrome() {
-  const isChromium = is.chrome;
-  const hasTouchScreen = window.matchMedia("(hover: none)").matches;
+    const isChromium = is.chrome;
+    const hasTouchScreen = window.matchMedia("(hover: none)").matches;
 
-  console.log("Hello from isChrome");
+    console.log("Hello from isChrome");
 
-  if (!isChromium && !hasTouchScreen) {
-    // not chrome
-    // Edit chrome-check element
-    const userHasSeenKey = "userHasSeenChromeCheck";
-    const userHasSeen = sessionStorage.getItem(userHasSeenKey);
-    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (!isChromium && !hasTouchScreen) {
+      // not chrome
+      // Edit chrome-check element
+      const userHasSeenKey = "userHasSeenChromeCheck";
+      const userHasSeen = sessionStorage.getItem(userHasSeenKey);
+      const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
-    if (userHasSeen && !isLocalhost) {
+      if (userHasSeen && !isLocalhost) {
+        return false;
+      }
+      sessionStorage.setItem(userHasSeenKey, "true");
+
+      const chromeCheck = document.querySelector("#chrome-check");
+      chromeCheck ? chromeCheck.classList.remove("hidden") : null;
+
       return false;
     }
-    sessionStorage.setItem(userHasSeenKey, "true");
-
-    const chromeCheck = document.querySelector("#chrome-check");
-    chromeCheck ? chromeCheck.classList.remove("hidden") : null;
-
-    return false;
+    return true;
   }
-  return true;
-}
 
-document.addEventListener(
-  "astro:page-load",
-  () => {
+  document.addEventListener(
+    "astro:page-load",
+    () => {
+      isChrome();
+    },
+    { once: true }
+  );
+
+  document.addEventListener("astro:after-swap", () => {
     isChrome();
-  },
-  { once: true }
-);
+  });
 
-document.addEventListener("astro:after-swap", () => {
-  isChrome();
-});
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("DOM fully loaded and parsed");
-  isChrome();
-});
+  document.addEventListener("DOMContentLoaded", (event) => {
+    console.log("DOM fully loaded and parsed");
+    isChrome();
+  });
 </script>
 
 <script>
   document.querySelector("#copyright")!.textContent = new Date().getFullYear().toString();
+</script>
+
+<script>
+  import { isLoggedIn } from "../utils/utils";
+  $(async function () {
+    const loginbutton = $(`#globalLoginButton`).first();
+    if (!loginbutton) return;
+    if (await isLoggedIn()) {
+      loginbutton.text("Your account");
+      loginbutton.attr("href", "/account");
+    } else {
+      loginbutton.text("Login or Register");
+      loginbutton.attr("href", "/account/login");
+    }
+  });
 </script>

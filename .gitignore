@@ -6,6 +6,7 @@ dist/
 # dependencies
 node_modules/
 node_modules
+node_modules.nosync
 
 # logs
 npm-debug.log*
@@ -14,9 +15,8 @@ yarn-error.log*
 pnpm-debug.log*
 
 # environment variables
-.env
-.env.production
-.env.development
+.env*
+!.env.example
 
 # macOS-specific files
 .DS_Store
@@ -25,4 +25,3 @@ pnpm-debug.log*
 .vscode/settings.json
 .vercel/*
 .vercel
-node_modules.nosync

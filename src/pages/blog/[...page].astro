@@ -1,7 +1,7 @@
 ---
 export const prerender = true;
 import PostCard from "../../components/PostCard.astro";
-import { formatBlogPosts } from "../../js/utils";
+import { formatBlogPosts } from "../../utils/utils";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import Pagination from "../../components/Pagination.astro";
@@ -16,7 +16,7 @@ interface PostProps {
   data: CollectionEntry<"blog">[];
 }
 
-type PageProps = PostProps
+type PageProps = PostProps;
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection("blog");
@@ -33,7 +33,7 @@ export async function getStaticPaths({ paginate }) {
 }
 
 const { page } = Astro.props;
-const loadedPage = page as PageProps
+const loadedPage = page as PageProps;
 ---
 
 <MainLayout title="Blog">

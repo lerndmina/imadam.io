@@ -1,19 +1,37 @@
 ---
-// Click button, get confetti!
-// Styled by Tailwind :)
+import { randomUUID } from "crypto";
+
+interface Props {
+  addConfetti?: boolean;
+}
+
+const { addConfetti = false, ...rest } = Astro.props as Props;
+const theRest = rest as any;
+const buttonId = randomUUID();
+const extraClasses = theRest.class || "";
 ---
 
 <button
-	class="appearance-none py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
->
-	<slot />
+  id={`${addConfetti}-${buttonId}`}
+  class={`appearance-none py-2 px-4 bg-notwhite text-notblack font-semibold rounded-lg shadow-md focus:outline-none button-gradient-anim ${extraClasses.length ? extraClasses : ""}`}>
+  <slot />
 </button>
 
 <script>
-	import confetti from 'canvas-confetti';
-	const button = document.body.querySelector('button');
-
-	if (button) {
-		button.addEventListener('click', () => confetti());
-	}
+  import confetti from "canvas-confetti";
+  // get a button where the id starts with "true-"
+  $(function () {
+    $('button[id^="true-"]').on("click", function (event) {
+      confetti({
+        spread: 120, // Increase spread to make confetti spread out more
+        angle: 90,
+        gravity: 2, // Increase gravity to make confetti fall faster
+        colors: ["#e00b8b", "#fa4b00"],
+        origin: { x: event.pageX / window.innerWidth, y: event.pageY / window.innerHeight },
+        startVelocity: 20,
+        particleCount: 100,
+        ticks: 100,
+      });
+    });
+  });
 </script>

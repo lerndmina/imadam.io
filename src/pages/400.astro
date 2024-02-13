@@ -1,0 +1,16 @@
+---
+import Link from "../components/Link.astro";
+import StatusLayout, { type StatusProps } from "../layouts/StatusLayout.astro"
+import { Image } from 'astro:assets'
+
+const status = {
+    code: "400",
+    isError: true,
+    description: "Bad Request",
+    shortDescription: "Bad Request",
+    flavourTitle: "I'm sorry Dave, I'm afraid I can't do that.",
+    flavourText: "The server cannot or will not process the request.",
+}
+---
+
+<StatusLayout status={status}/>
