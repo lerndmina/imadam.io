@@ -7,6 +7,7 @@ dist/
 node_modules/
 node_modules
 node_modules.nosync
+node_modules 2/
 
 # logs
 npm-debug.log*
