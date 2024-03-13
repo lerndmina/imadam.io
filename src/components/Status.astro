@@ -1,0 +1,84 @@
+---
+import Link from "./Link.astro";
+import type { Monitor } from "../utils/types";
+
+interface Props {
+  verbosity?: "full" | "short" | "icon";
+  withLink?: boolean;
+  customText?: string;
+}
+
+let { verbosity = "full", withLink = true, customText } = Astro.props as Props;
+
+let linkText = "Service Status";
+let linkUrl = "https://status.imadam.io";
+
+if (customText) {
+  linkText = customText;
+}
+
+export const betterstackToken = import.meta.env.BETTERSTACK_TOKEN;
+export const betterstackUrl = "https://betteruptime.com/api/v2/monitors";
+
+export enum ServiceStatus {
+  UP = "up",
+  DOWN = "down",
+  DEGRADED = "degraded",
+}
+
+export function translateStatusToEmoji(status: ServiceStatus): string {
+  switch (status) {
+    case ServiceStatus.UP:
+      return "🟢";
+    case ServiceStatus.DOWN:
+      return "🔴";
+    case ServiceStatus.DEGRADED:
+      return "🟡";
+  }
+}
+
+export async function fetchServiceStatus(): Promise<Monitor[]> {
+  if (!betterstackToken) {
+    throw new Error("BETTERSTACK_TOKEN is not defined");
+  }
+
+  const response = await fetch(betterstackUrl, {
+    headers: {
+      Authorization: `Bearer ${betterstackToken}`,
+    },
+  });
+
+  return (await response.json()).data;
+}
+
+export async function getServiceStatus(): Promise<ServiceStatus> {
+  const data = await fetchServiceStatus();
+
+  let upCount = 0;
+  let downCount = 0;
+
+  for (const monitor of data) {
+    const monitorStatus = monitor.attributes.status;
+    if (monitorStatus !== ServiceStatus.UP) {
+      downCount++;
+    } else {
+      upCount++;
+    }
+  }
+
+  if (downCount && !upCount) {
+    return ServiceStatus.DEGRADED;
+  }
+
+  if (downCount) {
+    return ServiceStatus.DOWN;
+  }
+
+  return ServiceStatus.UP;
+}
+
+const currentStatus = await getServiceStatus();
+const emoji = translateStatusToEmoji(currentStatus);
+---
+
+<Link href={linkUrl}>{withLink ? linkText : ""}</Link>{withLink ? " " : linkText + " "}{emoji}

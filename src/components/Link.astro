@@ -1,6 +1,6 @@
 ---
 interface Props {
-  text: string;
+  text?: string;
   href: string;
   extraclasses?: string;
   onclick?: string;
@@ -25,4 +25,4 @@ if (found && found[3] != homeUrl) {
 }
 ---
 
-<a onclick={onclick} target={target} class={classes} href={href} id={id}>{text}</a>
+<a onclick={onclick} target={target} class={classes} href={href} id={id}><slot>{text}</slot></a>

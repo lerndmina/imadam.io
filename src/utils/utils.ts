@@ -117,3 +117,13 @@ export async function isLoggedIn() {
     return false;
   }
 }
+
+export function getHeader(headers: Headers, headerName: string) {
+  console.log(headers);
+  for (let [key, value] of headers.entries()) {
+    if (key.toLowerCase() === headerName.toLowerCase()) {
+      return value;
+    }
+  }
+  return "";
+}
