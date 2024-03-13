@@ -5,22 +5,20 @@ import Link from "./Link.astro";
 ---
 
 <div id="content-wrap" class="px-1 pb-10" transition:name="nav">
-    <div class="block mr-auto ml-1 h-auto font-sans text-xl font-normal">
-      <Link href="/" text="&lt;imadam.io/&gt;" extraclasses="from-gradient1 to-gradient2 font-bold"/>
-    </div>
-    <div class="font-sans text-center text-2xl md:text-3xl text-notwhite">
-
-      <!-- Grab the nav list from data/navdata to populate the nav list -->
-      {navData.map((item) => <Link href={item.path} text={item.name} extraclasses="px-2"/>)}
-
-    </div>
+  <div class="block mr-auto ml-1 h-auto font-sans text-xl font-normal">
+    <Link href="/" text="<imadam.io/>" extraclasses="from-gradient1 to-gradient2 font-bold" />
+  </div>
+  <div class="font-sans text-center text-2xl md:text-3xl text-notwhite">
+    <!-- Grab the nav list from data/navdata to populate the nav list -->
+    {navData.map((item) => <Link href={item.path} text={item.name} extraclasses="px-2" />)}
+  </div>
 </div>
 
 <script>
   const links = document.querySelectorAll("[data-navLink]");
   links.forEach((link) => {
-    if(link.getAttribute("href") === window.location.pathname){
-      link.classList.add("nav-link-selected")
+    if (link.getAttribute("href") === window.location.pathname) {
+      link.classList.add("nav-link-selected");
     }
-  })
+  });
 </script>
