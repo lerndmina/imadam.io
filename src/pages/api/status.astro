@@ -1,0 +1,64 @@
+---
+import { getServiceStatus, fetchServiceStatus, ServiceStatus, translateStatusToEmoji } from "../../components/Status.astro";
+import { getHeader } from "../../utils/utils";
+const params = Astro.url.searchParams;
+
+const statusAPI_KEY = import.meta.env.STATUSAPI_KEY as string;
+if (!statusAPI_KEY) {
+  return new Response("API key not found in ENV", {
+    headers: { "content-type": "text/plain; charset=UTF-8" },
+    status: 500,
+    statusText: "Internal Server Error",
+  });
+}
+
+let authHeader = getHeader(Astro.request.headers, "status-auth");
+
+console.log(`authHeader: ${authHeader}`);
+
+if (authHeader !== statusAPI_KEY) {
+  return new Response("Unauthorized", {
+    headers: { "content-type": "text/plain; charset=UTF-8" },
+    status: 401,
+    statusText: "Unauthorized",
+  });
+}
+
+const verbose = params.get("verbose") === "true";
+const showTypes = params.get("show-types") === "true";
+
+console.log();
+
+if (showTypes) {
+  const statusTypes = {
+    UP: `Status: ${ServiceStatus.UP} ${translateStatusToEmoji(ServiceStatus.UP)}`,
+    DEGRADED: `Status: ${ServiceStatus.DEGRADED} ${translateStatusToEmoji(ServiceStatus.DEGRADED)}`,
+    DOWN: `Status: ${ServiceStatus.DOWN} ${translateStatusToEmoji(ServiceStatus.DOWN)}`,
+  };
+
+  return new Response(JSON.stringify(statusTypes), {
+    headers: { "content-type": "text/plain; charset=UTF-8" },
+    status: 200,
+    statusText: "OK",
+  });
+}
+
+if (verbose) {
+  return new Response(JSON.stringify(await fetchServiceStatus()), {
+    headers: { "content-type": "application/json" },
+    status: 200,
+    statusText: "OK",
+  });
+}
+
+const status = await getServiceStatus();
+const emoji = translateStatusToEmoji(status);
+
+return new Response(`Status: ${status} ${emoji}`, {
+  headers: { "content-type": "text/plain; charset=UTF-8" },
+  status: 200,
+  statusText: "OK",
+});
+---
+
+<p>How did you get here? Something's probably broken</p>
