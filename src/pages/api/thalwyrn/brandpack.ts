@@ -8,15 +8,13 @@ interface Release {
   assets: Asset[];
 }
 
-let downloadUrl: string = "";
-
 export async function GET({ redirect }: APIContext) {
   try {
     const response = await fetch("https://api.github.com/repos/thalwyrn/BrandPack/releases/latest");
     const data: Release = await response.json();
 
     if (data.assets.length > 0) {
-      downloadUrl = data.assets[0].browser_download_url;
+      const downloadUrl = data.assets[0].browser_download_url;
       console.log("Redirecting to " + downloadUrl);
       return redirect(downloadUrl, 302);
     } else {
