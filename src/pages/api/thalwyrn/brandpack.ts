@@ -15,12 +15,11 @@ export async function GET({ redirect }: APIContext) {
 
     if (data.assets.length > 0) {
       const downloadUrl = data.assets[0].browser_download_url;
-      console.log("Redirecting to " + downloadUrl);
       return redirect(downloadUrl, 302);
     } else {
-      console.log("No assets found in the latest release.");
+      return new Response("No assets found", { status: 404 });
     }
   } catch (error) {
-    return new Response(error.message);
+    return new Response("Error fetching data", { status: 500 });
   }
 }
