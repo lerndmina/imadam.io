@@ -1,0 +1,55 @@
+---
+export const prerender = true;
+import { getCollection, type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+// component import
+import MainLayout from "../../layouts/MainLayout.astro";
+import Link from "../../components/Link.astro";
+// util imports
+import { formatBlogPosts, slugify, formatDate } from "../../utils/utils";
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  const formattedPosts = formatBlogPosts(allPosts);
+  return formattedPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+    },
+  }));
+}
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+const { post } = Astro.props;
+const { title, description, date, category, author, image, imageTitle } = post.data;
+const { Content } = await post.render();
+// const allPosts = await getCollection("blog");
+// const formattedPosts = formatBlogPosts(allPosts, {
+//   sortByDate: false,
+// });
+---
+
+<MainLayout title={title} description={description}>
+  <div class="max-w-4xl m-auto">
+    <header>
+      <div class="mx-auto pb-10 container text-center">
+        <h1 class="text-5xl pb-1" transition:name={"title-" + post.slug}>{title}</h1>
+        <p class="text-md" transition:name={"author-" + post.slug}>
+          by <Link href={`/blog/author/${slugify(author)}/`} text={author} /> • {formatDate(date)}
+        </p>
+        <small class="text-sm">
+          <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
+        </small>
+      </div>
+    </header>
+    <div class="flex justify-center rounded-md overflow-hidden mx-auto p-10 pt-20">
+      <Image class="drop-shadow-lg" src={image} alt={imageTitle ? imageTitle : description} title={imageTitle ? imageTitle : description} transition:name={"img-" + post.slug} format={"avif"} />
+    </div>
+    <div class="flex justify-center sm:px-8 px-16">
+      <div class="content prose prose-invert">
+        <!-- ! Page content goes here -->
+        <Content />
+      </div>
+    </div>
+  </div>
+</MainLayout>

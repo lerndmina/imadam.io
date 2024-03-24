@@ -6,10 +6,14 @@ interface Props {
   onclick?: string;
   newtab?: boolean;
   id?: string;
+  target?: string; // We ignore this prop as we will set it based on the domain.
+  rel?: string;
 }
-var { text, href, extraclasses, onclick, newtab = true, id } = Astro.props as Props;
+var { text, href, extraclasses, onclick, newtab = true, id, rel } = Astro.props as Props;
 
-const classes = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link ${extraclasses ? extraclasses : ""}`;
+export const linkStyles = `bg-gradient-to-r from-notwhite to-notwhite hover:from-gradient1 hover:to-gradient2 text-transparent bg-clip-text link`;
+
+const linkClasses = `${linkStyles}${extraclasses ? ` ${extraclasses}` : ""}`;
 
 // If domain exists and is not homeurl then open in new tab.
 const homeUrl = "lerndmina.dev";
@@ -25,4 +29,4 @@ if (found && found[3] != homeUrl) {
 }
 ---
 
-<a onclick={onclick} target={target} class={classes} href={href} id={id}><slot>{text}</slot></a>
+<a rel={rel} onclick={onclick} target={target} class={linkStyles} href={href} id={id}><slot>{text}</slot></a>

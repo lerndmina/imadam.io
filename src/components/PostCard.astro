@@ -1,16 +1,40 @@
 ---
+import { RecordModel } from "pocketbase";
 import Link from "../components/Link.astro";
 import { slugify, formatDate } from "../utils/utils";
 import { Image } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
-const { post } = Astro.props;
+import { PB_URL } from "../utils/clientside-data";
+import PocketBase from "pocketbase";
+import { PocketBasePost } from "../utils/types";
+import { number } from "astro/zod";
+
+const pb = new PocketBase(PB_URL);
+
 interface Props {
-  post: CollectionEntry<"blog">;
+  post: PocketBasePost;
 }
 
-const { title, date, author, image, imageTitle, description, category } = post.data;
+const post = Astro.props.post;
 
-const url = `/blog/${post.slug}/`;
+const image = getPostImageUrl(PB_URL, post);
+
+const url = `/blog/${post.id}-${post.slug}/`;
+
+const category = post.expand.category.name;
+
+export async function getPostAuthor(pb: PocketBase, post: PocketBasePost): Promise<string> {
+  const authorObj = await pb.collection("authors").getOne(post.authorId);
+  return authorObj.name || authorObj.username || "Unknown Author";
+}
+
+export function getPostImageUrl(PB_URL: string, post: PocketBasePost, maxSize = 500): string {
+  return `${PB_URL}/api/files/${post.collectionId}/${post.id}/${post.image}?thumb=${maxSize}x${maxSize}f`;
+}
+
+const author = await getPostAuthor(pb, post);
+
+console.log(post);
 
 // console.log(`POST URLS ${url}`);
 ---
@@ -22,8 +46,10 @@ const url = `/blog/${post.slug}/`;
       <Image
         class="pl-4 pr-1 max-w-xs max-h-80 mx-auto lg:h-auto lg:w-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         src={image}
-        alt={imageTitle ? imageTitle : description}
-        title={imageTitle ? imageTitle : description}
+        width={300}
+        height={300}
+        alt={post.imageTitle ? post.imageTitle : post.title}
+        title={post.imageTitle ? post.imageTitle : post.title}
         transition:name={"img-" + post.slug}
         format={"avif"}
       />
@@ -31,9 +57,9 @@ const url = `/blog/${post.slug}/`;
     <div class="pr-4 flex flex-col lg:max-w-md lg:mx-auto text-center lg:justify-between justify-center">
       <div class="mb-8">
         <div class="font-bold text-xl mb-2" transition:name={"title-" + post.slug}>
-          <Link href={url} text={title} />
+          <Link href={url} text={post.title} />
         </div>
-        <p class="text-base">{description}</p>
+        <p class="text-base">{post.description}</p>
       </div>
       <!-- Desktop View -->
       <div class="flex lg:items-center self-center text-center">
@@ -42,9 +68,9 @@ const url = `/blog/${post.slug}/`;
             <Link href={`/blog/category/${slugify(category)}/`} text={`# ${category}`} />
           </p>
           <p transition:name={"author-" + post.slug}>
-            <Link href={`/blog/author/${slugify(author)}/`} text={author} /><span>
+            <Link href={`/blog/author/${slugify(post.authorId)}/`} text={author} /><span>
               •
-              {formatDate(date)}</span
+              {formatDate(post.date)}</span
             >
           </p>
         </div>

@@ -28,7 +28,7 @@ export async function getStaticPaths({ paginate }) {
   });
 
   return paginate(formattedPosts, {
-    pageSize: 10,
+    pageSize: 9999,
   });
 }
 
@@ -41,7 +41,7 @@ const loadedPage = page as PageProps;
   <br />
   <!-- <h1 class="mx-auto text-2xl text-center">Latest posts sorted first.</h1> -->
 
-  {loadedPage.data.map((post: CollectionEntry<"blog">) => <PostCard {post} />)}
+  {loadedPage.data.map((post: CollectionEntry<"blog">) => <PostCard post={post as any} />)}
 
   <Pagination prevUrl={loadedPage.url.prev} nextUrl={loadedPage.url.next} />
 </MainLayout>

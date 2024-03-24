@@ -1,0 +1,33 @@
+---
+import PostCard from "../../components/PostCard.astro";
+import { formatBlogPosts } from "../../utils/utils";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Pagination from "../../components/Pagination.astro";
+import { PB_URL } from "../../utils/clientside-data";
+import { PocketBasePost } from "../../utils/types";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase(PB_URL);
+
+let posts = (await pb.collection("posts").getFullList({
+  sort: "date",
+})) as PocketBasePost[];
+
+const expandedPosts: PocketBasePost[] = [];
+
+for (let post of posts) {
+  post = await pb.collection("posts").getOne(post.id, {
+    expand: "category",
+  });
+  console.log(post);
+  expandedPosts.push(post);
+}
+---
+
+<MainLayout title="Blog">
+  <h1 class="mx-auto text-4xl text-center">Blog:</h1>
+  <br />
+  <!-- <h1 class="mx-auto text-2xl text-center">Latest posts sorted first.</h1> -->
+
+  {expandedPosts.map((post) => <PostCard post={post} />)}
+</MainLayout>

@@ -47,3 +47,28 @@ export interface Monitor {
     };
   };
 }
+export type PocketBaseLoginErrorResponse = {
+  code: number;
+  message: string;
+  data: object;
+};
+
+export type PocketBasePost = {
+  authorId: string;
+  category: any;
+  collectionId: string;
+  collectionName: string;
+  content: string;
+  created: string;
+  date: string;
+  description?: string;
+  draft: boolean;
+  expand: any;
+  id: string;
+  image?: string;
+  imageTitle?: string;
+  slug: string;
+  title: string;
+  updated: string;
+  code_lang?: string;
+};

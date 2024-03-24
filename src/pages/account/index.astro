@@ -5,50 +5,44 @@ import Link from "../../components/Link.astro";
 
 <MainLayout title="Your Account">
   <div class="text-center">
-    <h1>Hello <span id="username" class="font-semibold">USERNAME</span></h1>
-    <p>Here is your account information</p>
-    <Link href="/account/login" text="Login / Logout" />
-    <br /><br />
-    <ul id="user-list"></ul>
-    <script>
-      import { checkUser } from "../../utils/utils";
-      $(async (event) => {
-        var userStr = localStorage.getItem("user");
-        if (!userStr) {
-          window.location.href = "/account/login";
-          return;
-        }
-        const userObj = JSON.parse(userStr);
-        console.log(userObj);
-
-        var username = document.getElementById("username");
-        if (!username) return;
-        username.innerHTML = userObj.global_name || userObj.username;
-        username.classList.add("text-gradient-anim", "grad");
-
-        var userList = document.getElementById("user-list");
-        if (!userList) return;
-        for (var key in userObj) {
-          if (key.toLowerCase() === "token" || key.toLocaleLowerCase() === "refresh_token") {
-            userObj[key] = userObj[key].substring(0, 5) + "...";
-          }
-          var li = document.createElement("li");
-          li.innerHTML = key + ": " + userObj[key];
-          userList.appendChild(li);
-          console.log(key, userObj[key]);
-        }
-        var li = document.createElement("li");
-        li.innerHTML = "Is Authenticated Right Now: " + (await isAuthenticated());
-        userList.appendChild(li);
-
-        async function isAuthenticated() {
-          var user = await checkUser(userObj.id, userObj.token);
-          if (user.id === userObj.id) {
-            return true;
-          }
-          return false;
-        }
-      });
-    </script>
+    <!-- Not already logged in -->
+    <div class="" id="loginDiv">
+      <button class="btn btn-primary" id="loginBtn">Login with Discord</button>
+    </div>
+    <!-- Already logged in -->
+    <div class="hidden" id="loggedInDiv">
+      <h1 class="text-2xl">Logged in <span id="username"></span></h1>
+      <button class="btn btn-primary" id="logoutBtn">Logout</button>
+    </div>
   </div>
+  <script>
+    import { PB_URL } from "../../utils/clientside-data";
+    import PocketBase from "pocketbase";
+    const pb = new PocketBase(PB_URL);
+
+    const loggedIn = pb.authStore.isValid;
+
+    if (loggedIn) {
+      document.getElementById("loginDiv")!.classList.add("hidden");
+      document.getElementById("loggedInDiv")!.classList.remove("hidden");
+    } else {
+      document.getElementById("loginDiv")!.classList.remove("hidden");
+      document.getElementById("loggedInDiv")!.classList.add("hidden");
+    }
+
+    $("#loginBtn").on("click", async () => {
+      try {
+        const authData = await pb.collection("users").authWithOAuth2({ provider: "discord", scopes: ["identify", "email", "guilds"] });
+        await pb.collection("users").update(authData.record.id, { discord_meta: authData.meta, name: authData.meta?.rawUser.global_name, avatar_url: authData.meta?.avatarUrl });
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+    $("#logoutBtn").on("click", async () => {
+      pb.authStore.clear();
+      window.location.reload();
+    });
+  </script>
 </MainLayout>
