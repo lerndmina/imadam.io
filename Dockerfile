@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Copy bun.lockb to the working directory
-COPY bun.lock ./
+COPY bun.lockb ./
 
 # Install bun
 RUN npm install -g bun
