@@ -25,5 +25,8 @@ RUN bun run build
 # Make port 4321 available to the outside world
 EXPOSE 4321
 
+# Define environment variable
+ENV HOST=0.0.0.0
+
 # Run the application when the container launches
-CMD ["HOST=0.0.0.0", "node", "dist/server/entry.mjs" ]
+CMD ["node", "dist/server/entry.mjs" ]
