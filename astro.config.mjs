@@ -32,5 +32,5 @@ export default defineConfig({
   },
   integrations: [mdx(), tailwind(), icon()],
   output: "server",
-  server: serverConfig,
+  adapter,
 });
