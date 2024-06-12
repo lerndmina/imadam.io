@@ -1,16 +1,30 @@
 ---
 import Link from "../components/Link.astro";
-import StatusLayout, { type StatusProps } from "../layouts/StatusLayout.astro"
-import { Image } from 'astro:assets'
+import StatusLayout, { type StatusProps } from "../layouts/StatusLayout.astro";
+import { Image } from "astro:assets";
+
+const url = Astro.url;
+
+const flavourTexts = [
+  "We looked everywhere!",
+  "We've been trying to reach you about your car's extended warranty.",
+  "This is not the page you're looking for.",
+  "You're not supposed to be here.",
+  "You're lost, aren't you?",
+  "These are not the droids you're looking for.",
+  "You're not the only one who's lost.",
+  "I seem to have misplaced that one.",
+  "Kitty will search under here!",
+];
 
 const status = {
-    code: "404",
-    isError: true,
-    description: "This page was not found",
-    shortDescription: "Page not found",
-    flavourTitle: "That's not good...",
-    flavourText: "We looked everywhere!",
-}
+  code: "404",
+  isError: true,
+  description: "This page was not found",
+  shortDescription: "Page not found",
+  flavourTitle: "Error 404",
+  flavourText: flavourTexts[Math.floor(Math.random() * flavourTexts.length)],
+};
 ---
 
-<StatusLayout status={status}/>
+<StatusLayout status={status} />
