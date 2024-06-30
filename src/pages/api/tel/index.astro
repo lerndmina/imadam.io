@@ -7,7 +7,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
     <!-- Make a form to enter a tel url -->
     <form>
       <label for="tel" class="block text-2xl">Enter a telephone number</label>
-      <input type="tel" name="tel" id="tel" class="text-2xl text-black" required />
+      <input type="tel" name="phone" id="phone" class="text-2xl text-black" required />
       <button type="submit" class="button block w-full text-white text-2xl py-2">Get tel url</button>
     </form>
   </div>
@@ -22,7 +22,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
       currentUrl = currentUrl.slice(0, -1);
     }
 
-    const telInput = document.querySelector("#tel") as HTMLInputElement;
+    const telInput = document.querySelector("#phone") as HTMLInputElement;
     const tel = telInput.value;
     const telUrl = `${currentUrl}/${tel}`;
 
