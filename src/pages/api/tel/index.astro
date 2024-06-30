@@ -1,0 +1,40 @@
+---
+import MainLayout from "../../../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Get a tel url" description="Gets a tel url from a telephone">
+  <div class="text-center pt-5 text-6xl">
+    <!-- Make a form to enter a tel url -->
+    <form>
+      <label for="tel" class="block text-2xl">Enter a telephone number</label>
+      <input type="tel" name="tel" id="tel" class="text-2xl text-black" required />
+      <button type="submit" class="button block w-full text-white text-2xl py-2">Get tel url</button>
+    </form>
+  </div>
+</MainLayout>
+<script>
+  document.querySelector("form")!.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Get current url
+    let currentUrl = window.location.href;
+    // if there is a trailing slash remove it
+    if (currentUrl.endsWith("/")) {
+      currentUrl = currentUrl.slice(0, -1);
+    }
+
+    const telInput = document.querySelector("#tel") as HTMLInputElement;
+    const tel = telInput.value;
+    const telUrl = `${currentUrl}/${tel}`;
+
+    // Copy to clipboard
+    navigator.clipboard
+      .writeText(telUrl)
+      .then(() => {
+        alert(`Copied telephone url to clipboard, you can now paste it in google docs or any other place you want to use it.`);
+      })
+      .catch((err) => {
+        // Alert input value if clipboard copy fails
+        alert(`Failed to copy to clipboard: ${telUrl}, please copy it manually`);
+      });
+  });
+</script>
