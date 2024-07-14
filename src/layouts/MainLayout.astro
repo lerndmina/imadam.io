@@ -7,6 +7,7 @@ interface Props {
 var { title, description = `Hey I'm Adam\nI like to make cool web stuff. Come take a look!` } = Astro.props as Props;
 
 const longTitle = `ImAdam.io • ${title}`;
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
@@ -17,6 +18,7 @@ import Head from "../components/Head.astro";
 <html lang="en">
   <Head title={longTitle} description={description} />
   <body class="h-screen bg-notblack">
+    <SpeedInsights />
     <Nav />
 
     <slot><div class="text-center pt-5 text-2xl">This is a default page, put some content here.</div></slot>
