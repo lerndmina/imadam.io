@@ -5,7 +5,8 @@ import MainLayout from "../layouts/MainLayout.astro";
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 
-const email = "mailto:hey@imadam.io";
+const email = "hey@imadam.io";
+const emailLink = "mailto:" + email;
 ---
 
 <MainLayout title="Contact Me">
@@ -13,10 +14,11 @@ const email = "mailto:hey@imadam.io";
   <div class="text-center pt-5 text-notwhite text-3xl">
     Come say hi!
     <div class="md:container md:mx-auto">
-      <p class="text-2xl pt-5">Do you like what I do or want to contact me? <br /> You can <a class="grad" href={email}>click here</a> to send me an email.</p>
+      <p class="text-2xl pt-5">Do you like what I do or want to contact me? <br /> You can <a class="grad" href={emailLink}>click here</a> to send me an email.</p>
+      <p class="text-lg pt-3">Is that not working? Here's my email in plaintext: <code>{email}</code></p>
     </div>
     <div class="grid grid-flow-col auto-cols-auto justify-center pt-5">
-      <a href={email} target="_blank">
+      <a href={emailLink} target="_blank">
         <div class="email-sprite m-2"></div>
       </a>
     </div>
