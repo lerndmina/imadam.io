@@ -10,20 +10,28 @@ interface Props {
 
 let { verbosity = "full", withLink = true, customText } = Astro.props as Props;
 
-let linkText = "Service Status";
+let linkText = "⏳ Loading";
+let tooltipText = "Loading status...";
 let linkUrl = "https://status.imadam.io";
 
 if (customText) {
   linkText = customText;
 }
 
-export const betterstackToken = import.meta.env.BETTERSTACK_TOKEN;
-export const betterstackUrl = "https://betteruptime.com/api/v2/monitors";
+export const statusUrl = "https://raw.githubusercontent.com/lerndmina/uptime/master/history/summary.json";
 
 export enum ServiceStatus {
   UP = "up",
   DOWN = "down",
   DEGRADED = "degraded",
+  UNAVAILABLE = "unavailable",
+}
+
+export enum ServiceStatusTooltips {
+  UP = "Service is up and running",
+  DOWN = "Service is down",
+  DEGRADED = "Some services are degraded",
+  UNAVAILABLE = "Unable to fetch service status, try clicking the link",
 }
 
 export function translateStatusToEmoji(status: ServiceStatus): string {
@@ -34,51 +42,62 @@ export function translateStatusToEmoji(status: ServiceStatus): string {
       return "🔴";
     case ServiceStatus.DEGRADED:
       return "🟡";
+    case ServiceStatus.UNAVAILABLE:
+      return "❓";
   }
 }
 
-export async function fetchServiceStatus(): Promise<Monitor[]> {
-  if (!betterstackToken) {
-    throw new Error("BETTERSTACK_TOKEN is not defined");
+export function translateStatusTooltips(status: ServiceStatus): string {
+  switch (status) {
+    case ServiceStatus.UP:
+      return ServiceStatusTooltips.UP;
+    case ServiceStatus.DOWN:
+      return ServiceStatusTooltips.DOWN;
+    case ServiceStatus.DEGRADED:
+      return ServiceStatusTooltips.DEGRADED;
+    case ServiceStatus.UNAVAILABLE:
+      return ServiceStatusTooltips.UNAVAILABLE;
   }
-
-  const response = await fetch(betterstackUrl, {
-    headers: {
-      Authorization: `Bearer ${betterstackToken}`,
-    },
-  });
-
-  return (await response.json()).data;
 }
 
-export async function getServiceStatus(): Promise<ServiceStatus> {
-  const data = await fetchServiceStatus();
-
-  let upCount = 0;
-  let downCount = 0;
-
-  for (const monitor of data) {
-    const monitorStatus = monitor.attributes.status;
-    if (monitorStatus !== ServiceStatus.UP) {
-      downCount++;
-    } else {
-      upCount++;
-    }
+export async function fetchServiceStatus(): Promise<Monitor[] | ServiceStatus.UNAVAILABLE> {
+  let response: Response;
+  let data: Monitor[] | string;
+  try {
+    response = await fetch(statusUrl, {});
+    data = (await response.json()) as Monitor[];
+    return data;
+  } catch (error) {
+    return ServiceStatus.UNAVAILABLE;
   }
-
-  if (downCount && !upCount) {
-    return ServiceStatus.DEGRADED;
-  }
-
-  if (downCount) {
-    return ServiceStatus.DOWN;
-  }
-
-  return ServiceStatus.UP;
 }
 
-const currentStatus = await getServiceStatus();
-const emoji = translateStatusToEmoji(currentStatus);
+let monitors = await fetchServiceStatus();
+let emoji: string = "";
+function getStatusEmojiAndTooltip(status) {
+  return {
+    emoji: translateStatusToEmoji(status),
+    tooltipText: translateStatusTooltips(status),
+  };
+}
+
+if (monitors === ServiceStatus.UNAVAILABLE) {
+  ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.UNAVAILABLE));
+} else {
+  const upMonitors = monitors.filter((monitor) => monitor.status === ServiceStatus.UP);
+  const downMonitors = monitors.filter((monitor) => monitor.status === ServiceStatus.DOWN);
+
+  if (upMonitors.length === monitors.length) {
+    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.UP));
+  } else if (downMonitors.length === monitors.length) {
+    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.DOWN));
+  } else {
+    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.DEGRADED));
+  }
+}
+
+// Last thing to do is set linktext
+linkText = "Service Status";
 ---
 
-<Link href={linkUrl}>{withLink ? linkText : ""}</Link>{withLink ? " " : linkText + " "}{emoji}
+<span title={tooltipText}><Link href={linkUrl}>{withLink ? linkText : ""}</Link>{withLink ? " " : linkText + " "}{emoji}</span>
