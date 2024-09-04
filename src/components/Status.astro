@@ -74,27 +74,32 @@ export async function fetchServiceStatus(): Promise<Monitor[] | ServiceStatus.UN
 
 let monitors = await fetchServiceStatus();
 let emoji: string = "";
-function getStatusEmojiAndTooltip(status) {
+export function getStatusEmojiAndTooltip(status) {
   return {
     emoji: translateStatusToEmoji(status),
     tooltipText: translateStatusTooltips(status),
   };
 }
-
-if (monitors === ServiceStatus.UNAVAILABLE) {
-  ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.UNAVAILABLE));
-} else {
+export async function getServiceStatus(monitors: Monitor[]){
+  let emoji: string = "";
+  let tooltipText: string = "";
+  let serviceStauts: ServiceStatus;
   const upMonitors = monitors.filter((monitor) => monitor.status === ServiceStatus.UP);
   const downMonitors = monitors.filter((monitor) => monitor.status === ServiceStatus.DOWN);
 
   if (upMonitors.length === monitors.length) {
-    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.UP));
+    serviceStauts = ServiceStatus.UP;
   } else if (downMonitors.length === monitors.length) {
-    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.DOWN));
+    serviceStauts = ServiceStatus.DOWN;
   } else {
-    ({ emoji, tooltipText } = getStatusEmojiAndTooltip(ServiceStatus.DEGRADED));
+    serviceStauts = ServiceStatus.DEGRADED;
   }
+
+  ({ emoji, tooltipText } = getStatusEmojiAndTooltip(serviceStauts));
+
+  return { emoji, tooltipText, serviceStauts };
 }
+
 
 // Last thing to do is set linktext
 linkText = "Service Status";

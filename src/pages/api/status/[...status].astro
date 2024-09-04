@@ -1,0 +1,89 @@
+---
+import { getServiceStatus } from "../../../components/Status.astro";
+import { fetchServiceStatus, ServiceStatus } from "../../../components/Status.astro";
+
+const request = Astro.request;
+const { status: path } = Astro.params;
+
+if (!path || path.length === 0 || path == "help") {
+  return new Response(JSON.stringify({error: true,
+    help: {
+        message: "/status/ API Help",
+        options: {
+            "/json": "Returns a detailed JSON array containing the status of each service.",
+            "/minimal": `Provides a simplified view, showing only '${ServiceStatus.UP}', '${ServiceStatus.DOWN}' or '${ServiceStatus.DEGRADED}'  for each service.`,
+            "/up": "Lists the services that are currently online, similar to the /json output.",
+            "/down": "Lists the services that are currently offline, similar to the /json output."
+        },
+        usage: "To access the desired information, append one of the options to the /status/ endpoint. For example: /status/json, /status/minimal, /status/up, /status/down",
+        note: "Please note that the root endpoint (/status/) currently only provides this help message."
+    }}), {
+    status: 400,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+}
+
+const data = await fetchServiceStatus();
+if (data === ServiceStatus.UNAVAILABLE) {
+    return new Response(JSON.stringify({error: true, message: "Service status is currently unavailable."}), {
+      status: 503,
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
+
+if (path === "json") {
+  return new Response(JSON.stringify({count: data.length, message: `Returned the status of ${data.length} website(s)`, data}), {
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+}
+
+if (path === "minimal") {
+  const { emoji, tooltipText, serviceStauts } = await getServiceStatus(data);
+  return new Response(serviceStauts, {
+    headers: {
+      'content-type': 'text/plain',
+    },
+  });
+}
+
+if (path === "up") {
+  const up = data.filter((monitor) => monitor.status === ServiceStatus.UP);
+  return new Response(JSON.stringify({count: up.length, message: `Returned the status of ${up.length} website(s)`, up}), {
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+}
+
+if (path === "down") {
+  const down = data.filter((monitor) => monitor.status === ServiceStatus.DOWN);
+  return new Response(JSON.stringify({count: down.length, message: `Returned the status of ${down.length} website(s)`, down}), {
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+return new Response(JSON.stringify({ message: "ok" }), {
+  headers: {
+    'content-type': 'application/json',
+  },
+});
+---
