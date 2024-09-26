@@ -84,12 +84,12 @@
     unist-util-visit "^5.0.0"
     vfile "^6.0.1"
 
-"@astrojs/node@^8.2.6":
-  version "8.2.6"
-  resolved "https://registry.npmjs.org/@astrojs/node/-/node-8.2.6.tgz"
-  integrity sha512-WirUUECgvElKJWw8dt/YJv0WC1kjRMw54zrDvY1DX6npvf6VcsYKwx6UQ+CUxwvR0Aen3F6Vjj1BWDrGM+zpeg==
+"@astrojs/node@^8.3.4":
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/@astrojs/node/-/node-8.3.4.tgz#c8a9c6ad45af26ae11d18a41ee325f924b6412d2"
+  integrity sha512-xzQs39goN7xh9np9rypGmbgZj3AmmjNxEMj9ZWz5aBERlqqFF3n8A/w/uaJeZ/bkHS60l1BXVS0tgsQt9MFqBA==
   dependencies:
-    send "^0.18.0"
+    send "^0.19.0"
     server-destroy "^1.0.1"
 
 "@astrojs/prism@^3.0.0":
@@ -2677,7 +2677,7 @@ ieee754@^1.1.13, ieee754@^1.2.1:
   version "0.0.1"
   dependencies:
     "@astrojs/mdx" "^2.1.0"
-    "@astrojs/node" "^8.2.6"
+    "@astrojs/node" "^8.3.4"
     "@astrojs/tailwind" "^5.1.0"
     "@astrojs/vercel" "^7.6.0"
     "@iconify-json/ic" "^1.1.17"
@@ -4563,10 +4563,10 @@ semver@^7.3.5, semver@^7.5.4:
   dependencies:
     lru-cache "^6.0.0"
 
-send@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/send/-/send-0.18.0.tgz"
-  integrity sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==
+send@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/send/-/send-0.19.0.tgz#bbc5a388c8ea6c048967049dbeac0e4a3f09d7f8"
+  integrity sha512-dW41u5VfLXu8SJh5bwRmyYUbAoSB3c9uQh6L8h/KtsFREPWpbX1lrljJo186Jc4nmci/sGUZ9a0a0J2zgfq2hw==
   dependencies:
     debug "2.6.9"
     depd "2.0.0"
