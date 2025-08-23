@@ -108,12 +108,12 @@
     unist-util-visit "^5.0.0"
     vfile "^6.0.1"
 
-"@astrojs/node@^8.2.6":
-  version "8.2.6"
-  resolved "https://registry.npmjs.org/@astrojs/node/-/node-8.2.6.tgz"
-  integrity sha512-WirUUECgvElKJWw8dt/YJv0WC1kjRMw54zrDvY1DX6npvf6VcsYKwx6UQ+CUxwvR0Aen3F6Vjj1BWDrGM+zpeg==
+"@astrojs/node@^8.3.4":
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/@astrojs/node/-/node-8.3.4.tgz#c8a9c6ad45af26ae11d18a41ee325f924b6412d2"
+  integrity sha512-xzQs39goN7xh9np9rypGmbgZj3AmmjNxEMj9ZWz5aBERlqqFF3n8A/w/uaJeZ/bkHS60l1BXVS0tgsQt9MFqBA==
   dependencies:
-    send "^0.18.0"
+    send "^0.19.0"
     server-destroy "^1.0.1"
 
 "@astrojs/prism@3.1.0":
@@ -2033,10 +2033,10 @@ emoji-regex@^9.2.2:
   resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
 
-encodeurl@~1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
-  integrity sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==
+encodeurl@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
+  integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
 
 end-of-stream@^1.1.0:
   version "1.4.4"
@@ -2714,7 +2714,7 @@ human-signals@^2.1.0:
   version "0.0.1"
   dependencies:
     "@astrojs/mdx" "^2.1.0"
-    "@astrojs/node" "^8.2.6"
+    "@astrojs/node" "^8.3.4"
     "@astrojs/tailwind" "^5.1.0"
     "@astrojs/vercel" "^7.6.0"
     "@iconify-json/ic" "^1.1.17"
@@ -4606,15 +4606,15 @@ semver@^7.3.5, semver@^7.6.3:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
 
-send@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/send/-/send-0.18.0.tgz"
-  integrity sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==
+send@^0.19.0:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/send/-/send-0.19.1.tgz#1c2563b2ee4fe510b806b21ec46f355005a369f9"
+  integrity sha512-p4rRk4f23ynFEfcD9LA0xRYngj+IyGiEYyqqOak8kaN0TvNmuxC2dcVeBn62GpCeR2CpWqyHCNScTP91QbAVFg==
   dependencies:
     debug "2.6.9"
     depd "2.0.0"
     destroy "1.2.0"
-    encodeurl "~1.0.2"
+    encodeurl "~2.0.0"
     escape-html "~1.0.3"
     etag "~1.8.1"
     fresh "0.5.2"
